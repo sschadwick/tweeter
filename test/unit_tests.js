@@ -1,6 +1,7 @@
 var chai = require('chai');
 var expect = chai.expect;
 
+var search = require(__dirname + '/../lib/search');
 var addFollow = require(__dirname + '/../lib/addFollow');
 var unFollow = require(__dirname + '/../lib/unFollow');
 var retweet = require(__dirname + '/../lib/retweet');
@@ -10,6 +11,14 @@ var randomName = 'mattblaze';
 var randomId = '730617219730669569';
 
 describe('Twitter API', function() {
+
+  it('should be able to search recent tweets', function(done) {
+    search('#myFirstTweet', function(err, res) {
+      expect(err).to.eql(null);
+      expect(typeof res.statuses).to.eql('object');
+      done(0);
+    });
+  });
 
   it('should be able to follow a user', function(done) {
     addFollow(randomName, function(err, res) {
@@ -44,5 +53,6 @@ describe('Twitter API', function() {
       done();
     });
   });
+
 
 });

@@ -17,7 +17,7 @@ var tempTweetId = '';
 describe('Twitter API', function() {
 
 // TODO: Integrate tests using trimming user function
-// in order to receive smaller packets/footprint. 
+// in order to receive smaller packets/footprint.
 // Will need to change tests.
 // Only response is users id.
 

@@ -1,0 +1,30 @@
+{
+  "name": "tweeter",
+  "version": "0.1.0",
+  "description": "This bot retweets the latest tweet using the \"#mediaarts\" hashtag. It attempts to retweet once per hour.",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sschadwick/tweeter.git"
+  },
+  "author": "Steven Chadwick <sschadwick@gmail.com> (http://www.github.com/sschadwick)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sschadwick/tweeter/issues"
+  },
+  "homepage": "https://github.com/sschadwick/tweeter#readme",
+  "dependencies": {
+    "twit": "^2.2.4"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "mocha": "^2.4.5"
+  }
+}

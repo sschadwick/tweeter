@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/sschadwick/tweeter#readme",
   "dependencies": {
+    "body-parser": "^1.15.1",
+    "express": "^4.13.4",
     "twit": "^2.2.4"
   },
   "devDependencies": {

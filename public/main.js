@@ -10,11 +10,13 @@ $(function() {
   }
 
   function loadCookies() {
-    var keys = JSON.parse(Cookies.get('keys'));
-    $('#consumer_key').val(keys.consumer_key);
-    $('#consumer_secret').val(keys.consumer_secret);
-    $('#access_token').val(keys.access_token);
-    $('#access_token_secret').val(keys.access_token_secret);
+    if (Cookies.get('keys')) {
+      var keys = JSON.parse(Cookies.get('keys'));
+      $('#consumer_key').val(keys.consumer_key);
+      $('#consumer_secret').val(keys.consumer_secret);
+      $('#access_token').val(keys.access_token);
+      $('#access_token_secret').val(keys.access_token_secret);
+    }
   }
 
   var formData = JSON.parse(JSON.stringify($("#authForm").serializeArray()));

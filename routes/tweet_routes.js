@@ -7,14 +7,29 @@ var errorHandler = require(__dirname + '/../lib/error_handler');
 
 var tweetRoute = module.exports = exports = express.Router();
 
-// Following
+// Searching
 
-tweetRoute.post('/follow', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/addFollow')(req, res);
+tweetRoute.get('/search/:str', function(req, res) {
+  require(__dirname + '/../lib/search')(req.params.str, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });
 
-tweetRoute.post('/unfollow', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/unFollow')(req, res);
+// Following
+
+tweetRoute.post('/follow/:id', jsonParser, function(req, res) {
+  require(__dirname + '/../lib/addFollow')(req.params.id, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
+});
+
+tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
+  require(__dirname + '/../lib/unFollow')(req.params.id, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });
 
 // Tweeting
@@ -33,13 +48,4 @@ tweetRoute.post('/retweet/:tweetId', jsonParser, function(req, res) {
 
 tweetRoute.post('/unretweet/:tweetId', jsonParser, function(req, res) {
   require(__dirname + '/../lib/unretweet')(req, res);
-});
-
-// Searching
-
-tweetRoute.get('/search/:str', function(req, res) {
-  require(__dirname + '/../lib/search')(req.params.str, function(err, data) {
-    if (err) { errorHandler.err500(err, data); }
-    responseHandler.send200(res, data);
-  });
 });

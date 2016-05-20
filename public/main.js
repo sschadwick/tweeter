@@ -9,16 +9,37 @@ $(function() {
     });
   }
 
+  function loadCookies() {
+    var keys = JSON.parse(Cookies.get('keys'));
+    $('#consumer_key').val(keys.consumer_key);
+    $('#consumer_secret').val(keys.consumer_secret);
+    $('#access_token').val(keys.access_token);
+    $('#access_token_secret').val(keys.access_token_secret);
+  }
+
+  var formData = JSON.parse(JSON.stringify($("#authForm").serializeArray()));
+  var authObj = {};
+  for (var i in formData) {
+    if (formData[i].name) {
+      authObj[formData[i].name] = formData[i].value;
+    }
+  }
+  var str = JSON.stringify(authObj);
+  loadCookies();
+
   $('#submit').on('click', function(e) {
     e.preventDefault();
-    var formData = JSON.parse(JSON.stringify($("#authForm").serializeArray()));
-    var authObj = {};
-    for (var i in formData) {
-      if (formData[i].name)
-        authObj[formData[i].name] = formData[i].value;
-    }
-
-    var str = JSON.stringify(authObj);
     sendData(str);
   });
+
+  $('#saveKeys').on('click', function(e) {
+    e.preventDefault();
+    Cookies.set('keys', {
+      consumer_key: $('#consumer_key').val(),
+      consumer_secret: $('#consumer_secret').val(),
+      access_token: $('#access_token').val(),
+      access_token_secret: $('#access_token_secret').val()
+    }, { expires: 365 });
+  });
+
 });

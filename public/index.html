@@ -8,17 +8,20 @@
   <h3>Tweeter</h3>
 
   <form name='authForm' id='authForm'>
+
     <label>Consumer Key</label>
-    <input type='text' name='consumer_key' value='consumer_key'>
+    <input type='text' name='consumer_key' id='consumer_key'>
 
     <label>Consumer Secret</label>
     <input type='text' name='consumer_secret' id='consumer_secret'>
+
     <label>Access Token</label>
     <input type='text' name='access_token' id='access_token'>
 
     <label>Access Token Secret</label>
     <input type='text' name='access_token_secret' id='access_token_secret'>
-
+    
+    <input type='button' id='saveKeys' value='Save'>
     <br>
 
     <label>Status to Tweet</label>
@@ -34,6 +37,7 @@
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.1.1/js.cookie.min.js"></script>
 <script src='main.js'></script>
 </body>
 </html>

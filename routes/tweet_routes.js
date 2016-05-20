@@ -32,6 +32,7 @@ tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
 // Tweeting
 
 tweetRoute.post('/tweet', jsonParser, function(req, res) {
+  console.log(req.body)
   require(__dirname + '/../lib/tweet2')(req, res);
 });
 

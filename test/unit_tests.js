@@ -10,7 +10,7 @@ var retweet = require(__dirname + '/../lib/retweet');
 var unretweet = require(__dirname + '/../lib/unretweet');
 var followTheLeader = require(__dirname + '/../lib/followTheLeader');
 
-var randomId = '730617219730669569';
+var randomId = '';
 var testUserId = '';
 var randomTweet = 'Hello world!';
 var tempTweetId = '';
@@ -21,6 +21,7 @@ describe('Twitter API Unit Tests', function() {
   it('should be able to search recent tweets', function(done) {
     search('#myFirstTweet', function(err, res) {
       testUserId = res.statuses[0].user.id_str;
+      randomId = res.statuses[0].id_str;
       expect(err).to.eql(null);
       expect(typeof res.statuses).to.eql('object');
       done();

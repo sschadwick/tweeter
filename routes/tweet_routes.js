@@ -19,10 +19,7 @@ tweetRoute.get('/search/:str', function(req, res) {
 // Following
 
 tweetRoute.post('/follow/:id', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/addFollow')(req.params.id, function(err, data) {
-    if (err) { errorHandler.err500(err, data); }
-    responseHandler.send200(res, data);
-  });
+  require(__dirname + '/../lib/addFollow2')(req, res);
 });
 
 tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
@@ -35,10 +32,7 @@ tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
 // Tweeting
 
 tweetRoute.post('/tweet', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/tweet')(req.body.status, function(err, data) {
-    if (err) { errorHandler.err500(err, data); }
-    responseHandler.send200(res, data);
-  });
+  require(__dirname + '/../lib/tweet2')(req, res);
 });
 
 tweetRoute.post('/untweet/:tweetId', jsonParser, function(req, res) {

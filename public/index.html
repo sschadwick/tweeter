@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tweeter</title>
+</head>
+<body>
+  
+  <h3>Tweeter</h3>
+
+  <form name='authForm' id='authForm'>
+    <label>Consumer Key</label>
+    <input type='text' name='consumer_key' value='consumer_key'>
+
+    <label>Consumer Secret</label>
+    <input type='text' name='consumer_secret' id='consumer_secret'>
+    <label>Access Token</label>
+    <input type='text' name='access_token' id='access_token'>
+
+    <label>Access Token Secret</label>
+    <input type='text' name='access_token_secret' id='access_token_secret'>
+
+    <br>
+
+    <label>Status to Tweet</label>
+    <input type='text' name='status' id='status' value='make it work'>
+
+    <input type='submit' id='submit' value='SEND'></input>
+
+    <!-- <button id='submitTweet' type='button' value='Submit'>Submit</button> -->
+  </form>
+
+  <p id='tweetRes'></p>
+
+
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>
+<script src='main.js'></script>
+</body>
+</html>

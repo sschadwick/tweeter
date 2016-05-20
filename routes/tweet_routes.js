@@ -49,9 +49,15 @@ tweetRoute.post('/untweet/:tweetId', jsonParser, function(req, res) {
 });
 
 tweetRoute.post('/retweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/retweet')(req, res);
+  require(__dirname + '/../lib/retweet')(req.params.tweetId, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });
 
 tweetRoute.post('/unretweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/unretweet')(req, res);
+  require(__dirname + '/../lib/unretweet')(req.params.tweetId, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });

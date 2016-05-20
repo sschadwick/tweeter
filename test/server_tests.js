@@ -10,6 +10,7 @@ var host = 'http://127.0.0.1:3000/api';
 
 var randomUser = '';
 var tempTweet = '';
+var tempRetweet = '';
 
 describe('Following Tests', function() {
 
@@ -20,6 +21,7 @@ describe('Following Tests', function() {
       .get('/search/MyFirstTweet')
       .end(function(err, res) {
         randomUser = res.body.msg.statuses[0].user.id_str;
+        tempRetweet = res.body.msg.statuses[0].id_str;
         expect(err).to.eql(null);
         expect(typeof res.body.msg.statuses).to.eql('object');
         expect(res.body.msg.statuses[0].text.indexOf('#myfirstTweet')).to.be.greaterThan(0);
@@ -74,8 +76,24 @@ describe('Following Tests', function() {
       });
   });
 
-  it('should be able to retweet using a POST route');
+  it('should be able to retweet using a POST route', function(done) {
+    chai.request(host)
+      .post('/retweet/' + tempRetweet)
+      .send({})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        done();
+      });
+  });
 
-  it('should be able to unretweet using a POST route');
+  it('should be able to unretweet using a POST route', function(done) {
+    chai.request(host)
+      .post('/unretweet/' + tempRetweet)
+      .send({})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        done();
+      });
+  });
 
 });

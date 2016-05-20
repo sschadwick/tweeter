@@ -9,8 +9,11 @@ require(__dirname + '/../server');
 var host = 'http://127.0.0.1:3000/api';
 
 var randomUser = '';
+var tempTweet = '';
 
 describe('Following Tests', function() {
+
+  // Searching
 
   it('should be able to search using a GET route', function(done) {
     chai.request(host)
@@ -23,6 +26,8 @@ describe('Following Tests', function() {
         done();
       });
   });
+
+  // Following
 
   it('should be able to follow a new person using a POST ROUTE', function(done) {
     chai.request(host)
@@ -46,13 +51,31 @@ describe('Following Tests', function() {
       });
   });
 
+  // Tweeting
+
+  it('should be able to create a new tweet using a POST route', function(done) {
+    chai.request(host)
+      .post('/tweet')
+      .send({status: 'Hello World!'})
+      .end(function(err, res) {
+        tempTweet = res.body.msg.id_str;
+        expect(err).to.eql(null);
+        done();
+      });
+  });
+
+  it('should be able to untweet using a POST route', function(done) {
+    chai.request(host)
+      .post('/untweet/' + tempTweet)
+      .send({})
+      .end(function(err, res) {
+        expect(err).to.eql(null);
+        done();
+      });
+  });
+
   it('should be able to retweet using a POST route');
 
   it('should be able to unretweet using a POST route');
 
-  it('should be able to follow a new person using a POST route');
-
-  it('should be able to create a new tweet using a POST route');
-
-  it('should be able to untweet using a POST route');
 });

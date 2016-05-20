@@ -35,11 +35,17 @@ tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
 // Tweeting
 
 tweetRoute.post('/tweet', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/tweet')(req, res);
+  require(__dirname + '/../lib/tweet')(req.body.status, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });
 
 tweetRoute.post('/untweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/untweet')(req, res);
+  require(__dirname + '/../lib/untweet')(req.params.tweetId, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });
 
 tweetRoute.post('/retweet/:tweetId', jsonParser, function(req, res) {

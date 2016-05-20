@@ -6,7 +6,7 @@ var app = express();
 var tweetRouter = require(__dirname + '/routes/tweet_routes');
 
 app.use(express.static('public'));
-app.use('/fl/', tweetRouter);
+app.use('/api/', tweetRouter);
 
 app.use(function(req, res) {
   res.status(404).send('Page not found');

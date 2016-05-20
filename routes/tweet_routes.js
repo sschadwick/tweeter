@@ -2,6 +2,8 @@
 
 var express = require('express');
 var jsonParser = require('body-parser').json();
+var responseHandler = require(__dirname + '/../lib/response_handler');
+var errorHandler = require(__dirname + '/../lib/error_handler');
 
 var tweetRoute = module.exports = exports = express.Router();
 
@@ -36,5 +38,8 @@ tweetRoute.post('/unretweet/:tweetId', jsonParser, function(req, res) {
 // Searching
 
 tweetRoute.get('/search/:str', function(req, res) {
-  require(__dirname + '/../lib/search')(res, res);
+  require(__dirname + '/../lib/search')(req.params.str, function(err, data) {
+    if (err) { errorHandler.err500(err, data); }
+    responseHandler.send200(res, data);
+  });
 });

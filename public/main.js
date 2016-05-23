@@ -12,8 +12,8 @@ $(function() {
   }
 
   function loadCookies() {
-    if (Cookies.get('keys')) {
-      var keys = JSON.parse(Cookies.get('keys'));
+    if (Cookies.get('twetr')) {
+      var keys = JSON.parse(Cookies.get('twetr'));
       $('#consumer_key').val(keys.consumer_key);
       $('#consumer_secret').val(keys.consumer_secret);
       $('#access_token').val(keys.access_token);
@@ -41,7 +41,7 @@ $(function() {
   $('#submitTweet').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    authObj.status = $('#status').serializeArray()[0].value;
+    authObj.status = $('#status').val();
     sendData(JSON.stringify(authObj), server + '/api/tweet');
 
     // TODO: only update on success response
@@ -52,7 +52,7 @@ $(function() {
   $('#submitUntweet').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    var tweetId = $('#untweet').serializeArray()[0].value;
+    var tweetId = $('#untweet').val();
     sendData(JSON.stringify(authObj), server + '/api/untweet/' + tweetId);
 
     // TODO: only update on success response
@@ -63,7 +63,7 @@ $(function() {
   $('#submitRetweet').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    var tweetId = $('#retweet').serializeArray()[0].value;
+    var tweetId = $('#retweet').val();
     sendData(JSON.stringify(authObj), server + '/api/retweet/' + tweetId);
 
     // TODO: only update on success response
@@ -74,7 +74,7 @@ $(function() {
   $('#submitUnretweet').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    var tweetId = $('#unretweet').serializeArray()[0].value;
+    var tweetId = $('#unretweet').val();
     sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId);
 
     // TODO: only update on success response
@@ -85,7 +85,7 @@ $(function() {
   $('#submitFollow').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    var userId = $('#follow').serializeArray()[0].value;
+    var userId = $('#follow').val();
     sendData(JSON.stringify(authObj), server + '/api/follow/' + userId);
 
     // TODO: only update on success response
@@ -96,7 +96,7 @@ $(function() {
   $('#submitUnfollow').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-    var userId = $('#unfollow').serializeArray()[0].value;
+    var userId = $('#unfollow').val();
     sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId);
 
     // TODO: only update on success response
@@ -106,7 +106,7 @@ $(function() {
   // Save Auth Keys
   $('#saveKeys').on('click', function(e) {
     e.preventDefault();
-    Cookies.set('keys', {
+    Cookies.set('twetr', {
       consumer_key: $('#consumer_key').val(),
       consumer_secret: $('#consumer_secret').val(),
       access_token: $('#access_token').val(),

@@ -15,32 +15,32 @@ tweetRoute.get('/search/:str', function(req, res) {
 
 // Add Follow
 tweetRoute.post('/follow/:id', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/addFollow2')(req, res);
+  require(__dirname + '/../lib/addFollow')(req, res);
 });
 
 // Un-Follow
 tweetRoute.post('/unfollow/:id', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/unFollow2')(req, res);
+  require(__dirname + '/../lib/unFollow')(req, res);
 });
 
 // TWEETING:
 
 // New tweet
 tweetRoute.post('/tweet', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/tweet2')(req, res);
+  require(__dirname + '/../lib/tweet')(req, res);
 });
 
 // Un-tweet
 tweetRoute.post('/untweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/untweet2')(req, res);
+  require(__dirname + '/../lib/untweet')(req, res);
 });
 
 // Re-tweet
 tweetRoute.post('/retweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/retweet2')(req, res);
+  require(__dirname + '/../lib/retweet')(req, res);
 });
 
 // Unre-tweet
 tweetRoute.post('/unretweet/:tweetId', jsonParser, function(req, res) {
-  require(__dirname + '/../lib/unretweet2')(req, res);
+  require(__dirname + '/../lib/unretweet')(req, res);
 });

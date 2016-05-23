@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tweeter</title>
+  <title>Twetr</title>
 </head>
 <body>
   
-  <h3>Tweeter</h3>
+  <h3>Twetr: Intuitive Twitter Automation</h3>
 
   <form name='authForm' id='authForm'>
 
@@ -21,13 +21,18 @@
     <label>Access Token Secret</label>
     <input type='text' name='access_token_secret' id='access_token_secret'>
     
-    <input type='button' id='saveKeys' value='Save'> <p id='saveSuccess'></p>
+    <input type='button' id='saveKeys' value='Save'>
+    <p id='saveSuccess'></p>
+  </form>
+
+
     <br>
 
-    <label>Status to Tweet</label>
+  <form name='tweetForm' id='tweetForm'>
+    <label>New Tweet</label>
     <input type='text' name='status' id='status' value='make it work'>
 
-    <input type='submit' id='submit' value='SEND'></input>
+    <input type='submit' id='submitTweet' value='Tweet'></input>
     <br>
     <p id='submitSuccess'></p>
 

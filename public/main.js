@@ -1,7 +1,7 @@
 $(function() {
   function sendData(data) {
     $.ajax({
-      url: '/api/tweet',
+      url: 'http://localhost:3000/api/tweet',
       type: 'POST',
       contentType: 'application/json',
       data: data,
@@ -21,7 +21,7 @@ $(function() {
 
   loadCookies();
 
-  $('#submit').on('click', function(e) {
+  $('#submitTweet').on('click', function(e) {
     var formData = JSON.parse(JSON.stringify($("#authForm").serializeArray()));
     var authObj = {};
     for (var i in formData) {

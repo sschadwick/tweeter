@@ -1,13 +1,17 @@
 $(function() {
   var server = 'http://localhost:3000';
   // Function definitions
-  function sendData(data, url) {
+  function sendData(data, url, callback) {
     $.ajax({
       url: url,
       type: 'POST',
       contentType: 'application/json',
       data: data,
       dataType: 'json'
+    }).done(function(res) {
+      if (callback) {
+        callback(res);
+      }
     });
   }
 
@@ -42,10 +46,9 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     authObj.status = $('#status').val();
-    sendData(JSON.stringify(authObj), server + '/api/tweet');
-
-    // TODO: only update on success response
-    $('#submitSuccess').html('Tweet sent successfully!');
+    sendData(JSON.stringify(authObj), server + '/api/tweet', function(res) {
+      $('#submitSuccess').html('Tweet sent successfully!');
+    });
   });
 
   // Untweet
@@ -53,10 +56,9 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#untweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/untweet/' + tweetId);
-
-    // TODO: only update on success response
-    $('#submitSuccess').html('Un-tweet sent successfully!');
+    sendData(JSON.stringify(authObj), server + '/api/untweet/' + tweetId, function(res) {
+      $('#submitSuccess').html('Un-tweet sent successfully!');
+    });
   });
 
   // Retweet
@@ -64,10 +66,9 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#retweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/retweet/' + tweetId);
-
-    // TODO: only update on success response
-    $('#submitSuccess').html('Retweet sent successfully!');
+    sendData(JSON.stringify(authObj), server + '/api/retweet/' + tweetId, function(res) {
+      $('#submitSuccess').html('Retweet sent successfully');
+    });
   });
 
   // Unretweet
@@ -75,10 +76,9 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#unretweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId);
-
-    // TODO: only update on success response
-    $('#submitSuccess').html('Un-Retweet sent successfully!');
+    sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId, function(res) {
+      $('#submitSuccess').html('Un-Retweet sent successfully!');
+    });
   });
 
   // Follow
@@ -86,10 +86,9 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#follow').val();
-    sendData(JSON.stringify(authObj), server + '/api/follow/' + userId);
-
-    // TODO: only update on success response
-    $('#submitSuccess').html('Now following: ' + userId);
+    sendData(JSON.stringify(authObj), server + '/api/follow/' + userId, function(res) {
+      $('#submitSuccess').html('Now following: ' + userId);
+    });
   });
 
   // Unfollow
@@ -97,10 +96,22 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#unfollow').val();
-    sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId);
+    sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId, function(res) {
+      $('#submitSuccess').html('No longer following: ' + userId);
 
-    // TODO: only update on success response
-    $('#submitSuccess').html('No longer following: ' + userId);
+    });
+  });
+
+  // Convert Username to ID
+  $('#submitConvert').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+
+    var username = $('#converter').val();
+
+    sendData(JSON.stringify(authObj), server + '/api/username/' + username, function(res) {
+      $('#submitSuccess').html('That user\'s id is: ' + res.msg.id_str);
+    });
   });
 
   // Save Auth Keys

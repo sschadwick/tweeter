@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Tweeter</title>
+  <title>Twetr</title>
 </head>
 <body>
   
-  <h3>Tweeter</h3>
+  <h3>Twetr: Intuitive Twitter Automation</h3>
 
   <form name='authForm' id='authForm'>
 
@@ -21,21 +21,46 @@
     <label>Access Token Secret</label>
     <input type='text' name='access_token_secret' id='access_token_secret'>
     
-    <input type='button' id='saveKeys' value='Save'> <p id='saveSuccess'></p>
-    <br>
+    <input type='button' id='saveKeys' value='Save'>
+    <p id='saveSuccess'></p>
+  </form>
+  <br>
+  <p id='submitSuccess'></p>
 
-    <label>Status to Tweet</label>
+  <form name='tweetForm' id='tweetForm'>
+    <label>New tweet</label>
     <input type='text' name='status' id='status' value='make it work'>
-
-    <input type='submit' id='submit' value='SEND'></input>
+    <input type='submit' id='submitTweet' value='Tweet'></input>
     <br>
-    <p id='submitSuccess'></p>
 
-    <!-- <button id='submitTweet' type='button' value='Submit'>Submit</button> -->
+    <label>Un-tweet</label>
+    <input type='text' name='untweet' id='untweet'></input>
+    <input type='submit' id='submitUntweet' value='Untweet'></input>
+    <br>
+
+    <label>Retweet</label>
+    <input type='text' name='retweet' id='retweet'></input>
+    <input type='submit' id='submitRetweet' value='Retweet'></input>
+    <br>
+
+    <label>Un-Retweet</label>
+    <input type='text' name='unretweet' id='unretweet'></input>
+    <input type='submit' id='submitUnretweet' value='Un-retweet'></input>
   </form>
 
-  <p id='tweetRes'></p>
+  <br>
 
+  <form name='followForm' id='followForm'>
+    <label>Follow User</label>
+    <input type='text' name='follow' id='follow'></input>
+    <input type='submit' id='submitFollow' value='Follow'></input>
+    <br>
+
+    <label>Un-Follow User</label>
+    <input type='text' name='unfollow' id='unfollow'></input>
+    <input type='submit' id='submitUnfollow' value='Unfollow'></input>
+
+  </form>
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>

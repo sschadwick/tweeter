@@ -1,7 +1,7 @@
 {
   "name": "tweeter",
   "version": "0.1.0",
-  "description": "This bot retweets the latest tweet using the \"#mediaarts\" hashtag. It attempts to retweet once per hour.",
+  "description": "This is a twitter automation platform",
   "main": "server.js",
   "directories": {
     "test": "test"

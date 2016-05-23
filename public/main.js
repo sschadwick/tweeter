@@ -78,13 +78,32 @@ $(function() {
     sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId);
 
     // TODO: only update on success response
-    $('#submitSuccess').html('Un-retweet sent successfully!');
+    $('#submitSuccess').html('Un-Retweet sent successfully!');
   });
 
   // Follow
+  $('#submitFollow').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var userId = $('#follow').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/follow/' + userId);
+
+    // TODO: only update on success response
+    $('#submitSuccess').html('Now following: ' + userId);
+  });
 
   // Unfollow
+  $('#submitUnfollow').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var userId = $('#unfollow').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId);
 
+    // TODO: only update on success response
+    $('#submitSuccess').html('No longer following: ' + userId);
+  });
+
+  // Save Auth Keys
   $('#saveKeys').on('click', function(e) {
     e.preventDefault();
     Cookies.set('keys', {

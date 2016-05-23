@@ -28,7 +28,6 @@
   <p id='submitSuccess'></p>
 
   <form name='tweetForm' id='tweetForm'>
-
     <label>New tweet</label>
     <input type='text' name='status' id='status' value='make it work'>
     <input type='submit' id='submitTweet' value='Tweet'></input>
@@ -36,25 +35,32 @@
 
     <label>Un-tweet</label>
     <input type='text' name='untweet' id='untweet'></input>
-    <input type='submit', id='submitUntweet' value='Untweet'></input>
+    <input type='submit' id='submitUntweet' value='Untweet'></input>
     <br>
 
     <label>Retweet</label>
     <input type='text' name='retweet' id='retweet'></input>
-    <input type='submit', id='submitRetweet' value='Retweet'></input>
+    <input type='submit' id='submitRetweet' value='Retweet'></input>
     <br>
 
     <label>Un-Retweet</label>
     <input type='text' name='unretweet' id='unretweet'></input>
-    <input type='submit', id='submitUnretweet' value='Un-retweet'></input>
-
-
-
-    <!-- <button id='submitTweet' type='button' value='Submit'>Submit</button> -->
+    <input type='submit' id='submitUnretweet' value='Un-retweet'></input>
   </form>
 
-  <p id='tweetRes'></p>
+  <br>
 
+  <form name='followForm' id='followForm'>
+    <label>Follow User</label>
+    <input type='text' name='follow' id='follow'></input>
+    <input type='submit' id='submitFollow' value='Follow'></input>
+    <br>
+
+    <label>Un-Follow User</label>
+    <input type='text' name='unfollow' id='unfollow'></input>
+    <input type='submit' id='submitUnfollow' value='Unfollow'></input>
+
+  </form>
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>

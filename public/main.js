@@ -1,7 +1,9 @@
 $(function() {
-  function sendData(data) {
+  var server = 'http://localhost:3000';
+  // Function definitions
+  function sendData(data, url) {
     $.ajax({
-      url: 'http://localhost:3000/api/tweet',
+      url: url,
       type: 'POST',
       contentType: 'application/json',
       data: data,
@@ -19,22 +21,69 @@ $(function() {
     }
   }
 
-  loadCookies();
-
-  $('#submitTweet').on('click', function(e) {
-    var formData = JSON.parse(JSON.stringify($("#authForm").serializeArray()));
+  function loadAuth() {
+    var formData = $('#authForm').serializeArray();
     var authObj = {};
     for (var i in formData) {
       if (formData[i].name) {
         authObj[formData[i].name] = formData[i].value;
       }
     }
-    var str = JSON.stringify(authObj);
-    console.log(authObj);
+    return authObj;
+  }
+
+  // Load cookies on page load (TODO: Put in jquery onload)
+  loadCookies();
+
+  // Button event listeners
+
+  // New Tweet
+  $('#submitTweet').on('click', function(e) {
     e.preventDefault();
-    sendData(str);
-    $('#submitSuccess').html('Keys sent successfully!');
+    var authObj = loadAuth();
+    authObj.status = $('#status').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/tweet');
+
+    // TODO: only update on success response
+    $('#submitSuccess').html('Tweet sent successfully!');
   });
+
+  // Untweet
+  $('#submitUntweet').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var tweetId = $('#untweet').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/untweet/' + tweetId);
+
+    // TODO: only update on success response
+    $('#submitSuccess').html('Un-tweet sent successfully!');
+  });
+
+  // Retweet
+  $('#submitRetweet').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var tweetId = $('#retweet').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/retweet/' + tweetId);
+
+    // TODO: only update on success response
+    $('#submitSuccess').html('Retweet sent successfully!');
+  });
+
+  // Unretweet
+  $('#submitUnretweet').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var tweetId = $('#unretweet').serializeArray()[0].value;
+    sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId);
+
+    // TODO: only update on success response
+    $('#submitSuccess').html('Un-retweet sent successfully!');
+  });
+
+  // Follow
+
+  // Unfollow
 
   $('#saveKeys').on('click', function(e) {
     e.preventDefault();

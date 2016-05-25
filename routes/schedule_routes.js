@@ -12,19 +12,26 @@ var deleteCron = addCron.deleteCron;
 var scheduleRoute = module.exports = exports = express.Router();
 
 scheduleRoute.get('/schedule', function(req, res) {
-  var task = addCron('*/3 * * * * *').start();
-  // Add an id tag to track tasks
-  responseHandler.send200(res, 'task started');
+  var task = addCron('*/3 * * * * *', function() {
+    console.log('log it every so often');
+  }).start();
+  responseHandler.send200(res, 'task started: ' + task.id);
 });
 
-scheduleRoute.get('/stopCron', function(req, res) {
-
-  // remove based on req.body.task
-  stopCron(queue[0]);
-  responseHandler.send200(res, 'task stopped');
+scheduleRoute.get('/stopCron/:id', function(req, res) {
+  for (var i in queue) {
+    if (req.params.id === queue[i].id) {
+      var task = stopCron(queue[i]);
+      responseHandler.send200(res, 'task stopped: ' + task.id);
+    }
+  }
 });
 
-scheduleRoute.get('/deleteCron', function(req, res) {
-  deleteCron(queue[0]);
-  responseHandler.send200(res, 'task deleted');
+scheduleRoute.get('/deleteCron/:id', function(req, res) {
+  for (var i in queue) {
+    if (req.params.id === queue[i].id) {
+      var task = deleteCron(queue[i]);
+      responseHandler.send200(res, 'task deleted: ' + task.id);
+    }
+  }
 });

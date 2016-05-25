@@ -47,7 +47,7 @@ $(function() {
     var authObj = loadAuth();
     authObj.status = $('#status').val();
     sendData(JSON.stringify(authObj), server + '/api/tweet', function(res) {
-      $('#submitSuccess').html('Tweet sent successfully!');
+      $('#submitSuccess').html('Tweet sent successfully! Tweet ID is : ' + res.msg.id_str);
     });
   });
 
@@ -87,7 +87,7 @@ $(function() {
     var authObj = loadAuth();
     var userId = $('#follow').val();
     sendData(JSON.stringify(authObj), server + '/api/follow/' + userId, function(res) {
-      $('#submitSuccess').html('Now following: ' + userId);
+      $('#submitSuccess').html('Now following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
 
@@ -97,8 +97,7 @@ $(function() {
     var authObj = loadAuth();
     var userId = $('#unfollow').val();
     sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId, function(res) {
-      $('#submitSuccess').html('No longer following: ' + userId);
-
+      $('#submitSuccess').html('No longer following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
 
@@ -106,9 +105,7 @@ $(function() {
   $('#submitConvert').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();
-
     var username = $('#converter').val();
-
     sendData(JSON.stringify(authObj), server + '/api/username/' + username, function(res) {
       $('#submitSuccess').html('That user\'s id is: ' + res.msg.id_str);
     });

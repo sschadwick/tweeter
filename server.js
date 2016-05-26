@@ -2,9 +2,13 @@
 
 var express = require('express');
 var app = express();
+var mongoose = require('mongoose');
+mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/tweeter');
+process.env.APP_SECRET = process.env.APP_SECRET || 'changemechangemechangeme';
 
 var tweetRouter = require(__dirname + '/routes/tweet_routes');
 var scheduleRouter = require(__dirname + '/routes/schedule_routes');
+var userRouter = require(__dirname + '/routes/user_routes');
 
 app.use(function(req, resp, next) {
   resp.header('Access-Control-Allow-Origin', '*');
@@ -15,6 +19,7 @@ app.use(function(req, resp, next) {
 
 app.use('/api', tweetRouter);
 app.use('/api', scheduleRouter);
+app.use('/api', userRouter);
 app.use(express.static('public'));
 
 app.use(function(req, res) {

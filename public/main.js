@@ -1,5 +1,5 @@
 $(function() {
-  var server = 'https://localhost:3000';
+  var server = 'https://twetr.herokuapp.com:3000';
 
   // Function definitions
   function sendPOST(data, url, callback) {

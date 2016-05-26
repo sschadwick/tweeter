@@ -25,6 +25,20 @@ $(function() {
     });
   }
 
+  function loginGET(url, callback) {
+    $.ajax({
+      url: url,
+      type: 'GET',
+      headers: {
+        'Authorization': 'Basic ' + btoa('admin' + ':' + 'admin')
+      }
+    }).done(function(res) {
+      if (callback) {
+        callback(res);
+      }
+    });
+  }
+
   function loadCookies() {
     if (Cookies.get('twetr')) {
       var keys = JSON.parse(Cookies.get('twetr'));
@@ -139,6 +153,13 @@ $(function() {
     var taskId = $('#delTask').val();
     sendGET('/api/deleteCron/' + taskId, function(res) {
       $('#submitSuccess').html(res.msg);
+    });
+  });
+
+  $('#login').on('click', function(e) {
+    e.preventDefault();
+    loginGET('/api/signin', function(res) {
+      $('#submitSuccess').html(res.token);
     });
   });
 

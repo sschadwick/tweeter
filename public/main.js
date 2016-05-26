@@ -1,5 +1,4 @@
 $(function() {
-  var server = 'http://localhost:3000';
   // Function definitions
   function sendPOST(data, url, callback) {
     $.ajax({
@@ -57,7 +56,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     authObj.status = $('#status').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/tweet', function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/tweet', function(res) {
       $('#submitSuccess').html('Tweet sent successfully! Tweet ID is : ' + res.msg.id_str);
     });
   });
@@ -67,7 +66,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#untweet').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/untweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/untweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Un-tweet sent successfully!');
     });
   });
@@ -77,7 +76,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#retweet').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/retweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/retweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Retweet sent successfully');
     });
   });
@@ -87,7 +86,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#unretweet').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/unretweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Un-Retweet sent successfully!');
     });
   });
@@ -97,7 +96,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#follow').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/follow/' + userId, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/follow/' + userId, function(res) {
       $('#submitSuccess').html('Now following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
@@ -107,7 +106,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#unfollow').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/unfollow/' + userId, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/unfollow/' + userId, function(res) {
       $('#submitSuccess').html('No longer following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
@@ -117,7 +116,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var username = $('#converter').val();
-    sendPOST(JSON.stringify(authObj), server + '/api/username/' + username, function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/username/' + username, function(res) {
       $('#submitSuccess').html('That user\'s id is: ' + res.msg.id_str);
     });
   });
@@ -128,7 +127,7 @@ $(function() {
     var authObj = loadAuth();
     authObj.scrape = $('#subreddit').val();
     authObj.cron = $('#sched').val(); // ex: '*/5 * * * * *'
-    sendPOST(JSON.stringify(authObj), server + '/api/addCron', function(res) {
+    sendPOST(JSON.stringify(authObj), '/api/addCron', function(res) {
       $('#submitSuccess').html('Now AutoTweeting ' + res.msg);
     });
   });
@@ -138,7 +137,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var taskId = $('#delTask').val();
-    sendGET(server + '/api/deleteCron/' + taskId, function(res) {
+    sendGET('/api/deleteCron/' + taskId, function(res) {
       $('#submitSuccess').html(res.msg);
     });
   });

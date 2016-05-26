@@ -4,6 +4,7 @@ var express = require('express');
 var app = express();
 
 var tweetRouter = require(__dirname + '/routes/tweet_routes');
+var scheduleRouter = require(__dirname + '/routes/schedule_routes');
 
 app.use(function(req, resp, next) {
   resp.header('Access-Control-Allow-Origin', '*');
@@ -13,6 +14,7 @@ app.use(function(req, resp, next) {
 });
 
 app.use('/api', tweetRouter);
+app.use('/api', scheduleRouter);
 app.use(express.static('public'));
 
 app.use(function(req, res) {

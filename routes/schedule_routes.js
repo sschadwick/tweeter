@@ -20,7 +20,7 @@ scheduleRoute.post('/addCron', jsonParser, function(req, res) {
       var choose = Math.floor(9 *  Math.random()) + 1;
 
       req.body.status = titles[choose] + ' ' + urls[choose];
-      require(__dirname + '/../lib/twitter/tweet2')(req, res);
+      require(__dirname + '/../lib/twtr/tweet2')(req, res);
     });
   }).start();
   responseHandler.send200(res, 'task now running: ' + task.id);

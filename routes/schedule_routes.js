@@ -14,11 +14,11 @@ var scrape = require(__dirname + '/../lib/scrape');
 
 var scheduleRoute = module.exports = exports = express.Router();
 
-scheduleRoute.post('/schedule', jsonParser, function(req, res) {
-
-  var task = addCron('1,2,3,15,30,45 * * * *', function() {
+scheduleRoute.post('/addCron', jsonParser, function(req, res) {
+  var task = addCron(req.body.cron, function() {
     scrape(req.body.scrape, function(urls, titles) {
       var choose = Math.floor(9 *  Math.random()) + 1;
+
       req.body.status = titles[choose] + ' ' + urls[choose];
       require(__dirname + '/../lib/twitter/tweet2')(req, res);
     });

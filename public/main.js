@@ -111,6 +111,17 @@ $(function() {
     });
   });
 
+  // AutoTweet from Subreddit
+  $('#submitAutotweet').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    authObj.scrape = $('#subreddit').val();
+    authObj.cron = '1,2,3,4,5 * * * *';
+    sendData(JSON.stringify(authObj), server + '/api/addCron', function(res) {
+      $('#submitSuccess').html('Now AutoTweeting!');
+    });
+  });
+
   // Save Auth Keys
   $('#saveKeys').on('click', function(e) {
     e.preventDefault();

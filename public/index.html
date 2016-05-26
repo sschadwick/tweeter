@@ -59,7 +59,6 @@
     <label>Un-Follow User</label>
     <input type='text' name='unfollow' id='unfollow' placeholder='User ID'></input>
     <input type='submit' id='submitUnfollow' value='Unfollow'></input>
-
   </form>
 
   <br>
@@ -68,7 +67,14 @@
     <label>Convert Username to ID</label>
     <input type='text' name='converter' id='converter' placeholder='Username'></input>
     <input type='submit' id='submitConvert' value='Convert'></input>
-    
+  </form>
+
+  <br>
+
+  <form name='autoTweet' id='autoTweet'>
+    <label>Auto-Post from subreddit: r/</label>
+    <input type='text' name='subreddit' id='subreddit' placeholder='Subreddit'></input>
+    <input type='submit' id='submitAutotweet' value='Tweet it up!'></input>
   </form>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>

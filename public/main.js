@@ -25,12 +25,12 @@ $(function() {
     });
   }
 
-  function loginGET(url, callback) {
+  function login(username, password, callback) {
     $.ajax({
-      url: url,
+      url: '/api/signin',
       type: 'GET',
       headers: {
-        'Authorization': 'Basic ' + btoa('admin' + ':' + 'admin')
+        'Authorization': 'Basic ' + btoa(username + ':' + password)
       }
     }).done(function(res) {
       if (callback) {
@@ -64,6 +64,14 @@ $(function() {
   loadCookies();
 
   // Button event listeners
+
+  // Login and receive a token
+  $('#login').on('click', function(e) {
+    e.preventDefault();
+    login($('#username').val(), $('#password').val(), function(res) {
+      $('#submitSuccess').html(res.token);
+    });
+  });
 
   // New Tweet
   $('#submitTweet').on('click', function(e) {
@@ -153,13 +161,6 @@ $(function() {
     var taskId = $('#delTask').val();
     sendGET('/api/deleteCron/' + taskId, function(res) {
       $('#submitSuccess').html(res.msg);
-    });
-  });
-
-  $('#login').on('click', function(e) {
-    e.preventDefault();
-    loginGET('/api/signin', function(res) {
-      $('#submitSuccess').html(res.token);
     });
   });
 

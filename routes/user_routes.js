@@ -45,11 +45,15 @@ userRouter.get('/signin', httpBasic, function(req, res) {
   });
 });
 
-userRouter.get('/signout', function(req, res) {  
-  if (!req.user) return res.json({ msg: 'sign out failed' });
+userRouter.get('/signout', function(req, res) {
+  if (!req.user) {
+    return res.json({ msg: 'sign out failed' });
+  }
   req.user.token = '';
   req.user.save(function(err, data) {
-    if (err) handleError.err500(err, res);
+    if (err) {
+      return errorHandler(err, res);
+    }
     return res.json({ msg: 'sign out successful' });
   });
 });

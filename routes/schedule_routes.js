@@ -23,14 +23,14 @@ scheduleRoute.post('/addCron', jsonParser, function(req, res) {
       require(__dirname + '/../lib/twtr/tweetAuto')(req, res);
     });
   }).start();
-  responseHandler.send200(res, 'task now running: ' + task.id);
+  responseHandler.send200(res, 'Task now running: ' + task.id);
 });
 
 scheduleRoute.get('/stopCron/:id', function(req, res) {
   for (var i in queue) {
     if (req.params.id === queue[i].id) {
       var task = stopCron(queue[i]);
-      responseHandler.send200(res, 'task stopped: ' + task.id);
+      responseHandler.send200(res, 'Task stopped: ' + task.id);
     }
   }
 });
@@ -39,7 +39,7 @@ scheduleRoute.get('/deleteCron/:id', function(req, res) {
   for (var i in queue) {
     if (req.params.id === queue[i].id) {
       var task = deleteCron(queue[i]);
-      responseHandler.send200(res, 'task deleted: ' + task.id);
+      responseHandler.send200(res, 'Task deleted: ' + task.id);
     }
   }
 });

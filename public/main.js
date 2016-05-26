@@ -1,6 +1,5 @@
 $(function() {
-  var server = 'https://twetr.herokuapp.com:3000';
-
+  var server = 'http://twetr.herokuapp.com:3000';
   // Function definitions
   function sendPOST(data, url, callback) {
     $.ajax({
@@ -20,9 +19,6 @@ $(function() {
     $.ajax({
       url: url,
       type: 'GET'
-
-      // TODO: add rest of GET request
-
     }).done(function(res) {
       if (callback) {
         callback(res);
@@ -137,6 +133,7 @@ $(function() {
     });
   });
 
+  // Delete specified AutoTweet task
   $('#submitDelTask').on('click', function(e) {
     e.preventDefault();
     var authObj = loadAuth();

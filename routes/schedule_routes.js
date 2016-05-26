@@ -2,6 +2,7 @@
 
 var express = require('express');
 var jsonParser = require('body-parser').json();
+var uuid = require('node-uuid');
 
 var responseHandler = require(__dirname + '/../lib/response_handler');
 var queue = require(__dirname + '/../lib/schedule/queue');
@@ -9,13 +10,20 @@ var addCron = require(__dirname + '/../lib/schedule/addCron');
 var stopCron = addCron.stopCron;
 var deleteCron = addCron.deleteCron;
 
+var scrape = require(__dirname + '/../lib/scrape');
+
 var scheduleRoute = module.exports = exports = express.Router();
 
-scheduleRoute.get('/schedule', function(req, res) {
-  var task = addCron('*/3 * * * * *', function() {
-    console.log('log it every so often');
+scheduleRoute.post('/schedule', jsonParser, function(req, res) {
+
+  var task = addCron('1,2,3,15,30,45 * * * *', function() {
+    scrape(req.body.scrape, function(urls, titles) {
+      var choose = Math.floor(9 *  Math.random()) + 1;
+      req.body.status = titles[choose] + ' ' + urls[choose];
+      require(__dirname + '/../lib/twitter/tweet2')(req, res);
+    });
   }).start();
-  responseHandler.send200(res, 'task started: ' + task.id);
+  responseHandler.send200(res, 'task now running: ' + task.id);
 });
 
 scheduleRoute.get('/stopCron/:id', function(req, res) {
@@ -34,4 +42,12 @@ scheduleRoute.get('/deleteCron/:id', function(req, res) {
       responseHandler.send200(res, 'task deleted: ' + task.id);
     }
   }
+});
+
+scheduleRoute.get('/queue', function(req, res) {
+  var resQueue = [];
+  for (var i in queue) {
+    resQueue.push(queue[i].id);
+  }
+  responseHandler.send200(res, resQueue);
 });

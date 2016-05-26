@@ -1,13 +1,27 @@
 $(function() {
   var server = 'http://localhost:3000';
   // Function definitions
-  function sendData(data, url, callback) {
+  function sendPOST(data, url, callback) {
     $.ajax({
       url: url,
       type: 'POST',
       contentType: 'application/json',
       data: data,
       dataType: 'json'
+    }).done(function(res) {
+      if (callback) {
+        callback(res);
+      }
+    });
+  }
+
+  function sendGET(url, callback) {
+    $.ajax({
+      url: url,
+      type: 'GET'
+
+      // TODO: add rest of GET request
+
     }).done(function(res) {
       if (callback) {
         callback(res);
@@ -46,7 +60,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     authObj.status = $('#status').val();
-    sendData(JSON.stringify(authObj), server + '/api/tweet', function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/tweet', function(res) {
       $('#submitSuccess').html('Tweet sent successfully! Tweet ID is : ' + res.msg.id_str);
     });
   });
@@ -56,7 +70,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#untweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/untweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/untweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Un-tweet sent successfully!');
     });
   });
@@ -66,7 +80,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#retweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/retweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/retweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Retweet sent successfully');
     });
   });
@@ -76,7 +90,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var tweetId = $('#unretweet').val();
-    sendData(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/unretweet/' + tweetId, function(res) {
       $('#submitSuccess').html('Un-Retweet sent successfully!');
     });
   });
@@ -86,7 +100,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#follow').val();
-    sendData(JSON.stringify(authObj), server + '/api/follow/' + userId, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/follow/' + userId, function(res) {
       $('#submitSuccess').html('Now following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
@@ -96,7 +110,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var userId = $('#unfollow').val();
-    sendData(JSON.stringify(authObj), server + '/api/unfollow/' + userId, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/unfollow/' + userId, function(res) {
       $('#submitSuccess').html('No longer following: ' + res.msg.screen_name + ', User ID: ' + res.msg.id_str);
     });
   });
@@ -106,7 +120,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     var username = $('#converter').val();
-    sendData(JSON.stringify(authObj), server + '/api/username/' + username, function(res) {
+    sendPOST(JSON.stringify(authObj), server + '/api/username/' + username, function(res) {
       $('#submitSuccess').html('That user\'s id is: ' + res.msg.id_str);
     });
   });
@@ -117,8 +131,17 @@ $(function() {
     var authObj = loadAuth();
     authObj.scrape = $('#subreddit').val();
     authObj.cron = $('#sched').val(); // ex: '*/5 * * * * *'
-    sendData(JSON.stringify(authObj), server + '/api/addCron', function(res) {
-      $('#submitSuccess').html('Now AutoTweeting!');
+    sendPOST(JSON.stringify(authObj), server + '/api/addCron', function(res) {
+      $('#submitSuccess').html('Now AutoTweeting ' + res.msg);
+    });
+  });
+
+  $('#submitDelTask').on('click', function(e) {
+    e.preventDefault();
+    var authObj = loadAuth();
+    var taskId = $('#delTask').val();
+    sendGET(server + '/api/deleteCron/' + taskId, function(res) {
+      $('#submitSuccess').html(res.msg);
     });
   });
 

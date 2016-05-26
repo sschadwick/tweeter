@@ -30,51 +30,55 @@
   <form name='tweetForm' id='tweetForm'>
     <label>New tweet</label>
     <input type='text' name='status' id='status' placeholder='Status'>
-    <input type='submit' id='submitTweet' value='Tweet'></input>
+    <input type='submit' id='submitTweet' value='Tweet'>
     <br>
 
     <label>Delete tweet</label>
-    <input type='text' name='untweet' id='untweet' placeholder='Tweet ID'></input>
-    <input type='submit' id='submitUntweet' value='Untweet'></input>
+    <input type='text' name='untweet' id='untweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitUntweet' value='Untweet'>
     <br>
     <br>
     <label>New retweet</label>
-    <input type='text' name='retweet' id='retweet' placeholder='Tweet ID'></input>
-    <input type='submit' id='submitRetweet' value='Retweet'></input>
+    <input type='text' name='retweet' id='retweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitRetweet' value='Retweet'>
     <br>
 
     <label>Delete retweet</label>
-    <input type='text' name='unretweet' id='unretweet' placeholder='Tweet ID'></input>
-    <input type='submit' id='submitUnretweet' value='Un-retweet'></input>
+    <input type='text' name='unretweet' id='unretweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitUnretweet' value='Un-retweet'>
   </form>
 
   <br>
 
   <form name='followForm' id='followForm'>
     <label>Follow User</label>
-    <input type='text' name='follow' id='follow' placeholder='User ID'></input>
-    <input type='submit' id='submitFollow' value='Follow'></input>
+    <input type='text' name='follow' id='follow' placeholder='User ID'>
+    <input type='submit' id='submitFollow' value='Follow'>
     <br>
 
     <label>Un-Follow User</label>
-    <input type='text' name='unfollow' id='unfollow' placeholder='User ID'></input>
-    <input type='submit' id='submitUnfollow' value='Unfollow'></input>
+    <input type='text' name='unfollow' id='unfollow' placeholder='User ID'>
+    <input type='submit' id='submitUnfollow' value='Unfollow'>
   </form>
 
   <br>
 
   <form name='convertForm' id='convertForm'>
     <label>Convert Username to ID</label>
-    <input type='text' name='converter' id='converter' placeholder='Username'></input>
-    <input type='submit' id='submitConvert' value='Convert'></input>
+    <input type='text' name='converter' id='converter' placeholder='Username'>
+    <input type='submit' id='submitConvert' value='Convert'>
   </form>
 
   <br>
 
   <form name='autoTweet' id='autoTweet'>
     <label>Auto-Post from subreddit: r/</label>
-    <input type='text' name='subreddit' id='subreddit' placeholder='Subreddit'></input>
-    <input type='submit' id='submitAutotweet' value='Tweet it up!'></input>
+    <input type='text' name='subreddit' id='subreddit' placeholder='Subreddit'>
+    <input type='submit' id='submitAutotweet' value='Tweet it up!'>
+    <br>
+    <label>Schedule: </label>
+    <input type='text' name='sched' id='sched' value='*/15 * * * *'>
+    <p>Post every 15 minutes</p>
   </form>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js'></script>

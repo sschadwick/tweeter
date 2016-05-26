@@ -116,7 +116,7 @@ $(function() {
     e.preventDefault();
     var authObj = loadAuth();
     authObj.scrape = $('#subreddit').val();
-    authObj.cron = '1,2,3,4,5 * * * *';
+    authObj.cron = $('#sched').val(); // ex: '*/5 * * * * *'
     sendData(JSON.stringify(authObj), server + '/api/addCron', function(res) {
       $('#submitSuccess').html('Now AutoTweeting!');
     });

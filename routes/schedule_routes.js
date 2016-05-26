@@ -20,7 +20,7 @@ scheduleRoute.post('/addCron', jsonParser, function(req, res) {
       var choose = Math.floor(9 *  Math.random()) + 1;
 
       req.body.status = titles[choose] + ' ' + urls[choose];
-      require(__dirname + '/../lib/twtr/tweet2')(req, res);
+      require(__dirname + '/../lib/twtr/tweetAuto')(req, res);
     });
   }).start();
   responseHandler.send200(res, 'task now running: ' + task.id);
@@ -47,7 +47,9 @@ scheduleRoute.get('/deleteCron/:id', function(req, res) {
 scheduleRoute.get('/queue', function(req, res) {
   var resQueue = [];
   for (var i in queue) {
-    resQueue.push(queue[i].id);
+    if (queue[i].id) {
+      resQueue.push(queue[i].id);
+    }
   }
   responseHandler.send200(res, resQueue);
 });

@@ -1,0 +1,89 @@
+<section data-ng-controller='KeysController'>
+  <h3>Welcome to Twetr:</h3>
+
+  <form>
+
+    <label>Consumer Key</label>
+    <input type='text' data-ng-model='keys.consumer_key'>
+
+    <label>Consumer Secret</label>
+    <input type='text' data-ng-model='keys.consumer_secret'>
+
+    <label>Access Token</label>
+    <input type='text' data-ng-model='keys.access_token'>
+
+    <label>Access Token Secret</label>
+    <input type='text' data-ng-model='keys.access_token_secret'>
+    
+    <button data-ng-click='saveKey(keys)'>Save Keys</button>
+    <button data-ng-click='loadCookie()'>Load</button>
+  </form>
+
+  <br>
+  <p id='submitSuccess'></p>
+</section>
+
+<!-- Convert the rest of this into Angular -->
+<section data-ng-controller='TweetsController'>
+  <p>{{ result }}</p>
+  <form>
+    <label>New tweet</label>
+    <input type='text' placeholder='Status' data-ng-model='status'>
+    <button data-ng-click='submitTweet(status)'>Tweet</button>
+
+
+    <br>
+    <label>Delete tweet</label>
+    <input type='text' placeholder='Tweet ID' data-ng-model='untweetID'>
+    <button data-ng-click='submitUntweet(untweetID)'>Remove</button>
+    <br>
+
+    <br>
+    <label>New retweet</label>
+    <input type='text' placeholder='Tweet ID' data-ng-model='retweetID'>
+    <button data-ng-click='submitRetweet(retweetID)'>Retweet</button>
+    <br>
+
+    <label>Delete retweet</label>
+    <input type='text' placeholder='Tweet ID' data-ng-model='unretweetID'>
+    <button data-ng-click='submitUnretweet(unretweetID)'>Remove</button>
+  </form>
+
+  <br>
+
+  <form>
+    <label>Follow User</label>
+    <input type='text' placeholder='User ID' data-ng-model='followId'>
+    <button data-ng-click='submitFollow(followId)'>Follow</button>
+    <br>
+
+    <label>Un-Follow User</label>
+    <input type='text' placeholder='User ID' data-ng-model='unfollowId'>
+    <button data-ng-click='submitUnfollow(unfollowId)'>Unfollow</button>
+  </form>
+
+  <br>
+
+  <form name='convertForm' id='convertForm'>
+    <label>Convert Username to ID</label>
+    <input type='text' placeholder='Username' data-ng-model='lookupUser'>
+    <button data-ng-click='submitConvert(lookupUser)'>Look-Up</button>
+  </form>
+
+  <br>
+
+  <form name='autoTweet' id='autoTweet'>
+    <label>Auto-Post from subreddit: r/</label>
+    <input type='text' placeholder='Subreddit' data-ng-model='subreddit'>
+    <button data-ng-click='submitAutoTweet(subreddit, freq)'>Tweet It Up!</button>
+
+    <br>
+    <label>Schedule: </label>
+    <input type='text' value='*/15 * * * *' data-ng-model='freq'>
+    <p>Post every 15 minutes</p>
+
+    <label>Delete task:</label>
+    <input type='text' placeholder='Task ID' data-ng-model='delTask'>
+    <button data-ng-click='submitDeleteTask(delTask)'>Delete</button>
+  </form>
+</section>

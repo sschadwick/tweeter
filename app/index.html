@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Twetr Platform</title>
+  </head>
+  <body data-ng-app="twetrApp">
+  <a data-ng-if="loggedIn()" href data-ng-click="logOut()">Log Out{{username? ' of ' + username : ''}}</a>
+    <h1>Twetr: Intuitive Twitter Automation</h1>
+    <main data-ng-view>
+    </main>
+    <script src="bundle.js"></script>
+  </body>
+</html>

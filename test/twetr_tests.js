@@ -5,36 +5,62 @@ var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var expect = chai.expect;
 
+process.env.MONGO_URL = 'mongodb://localhost/review_test';
 require(__dirname + '/../server');
-var host = 'http://127.0.0.1:3000/api';
+var mongoose = require('mongoose');
+var host = 'localhost:3000/api';
+var User = require(__dirname + '/../models/user');
 
-var randomUser = '';
-var tempTweet = '';
-var tempRetweet = '';
+// Tests will only be auth'ed locally
+var authObj = require(__dirname + '/../config');
 
-describe('Following Tests', function() {
+var randomUser;
+var tempRetweet;
+var tempTweet;
 
-  // Searching
+describe('The Twetr Server', function() {
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function(err) {
+      if (err) throw err;
+      done();
+    });
+  });
 
-  it('should be able to search using a GET route', function(done) {
+  before(function(done) {
+    var user = new User();
+    user.username = 'testUser';
+    user.basic.username = 'testUser';
+    user.generateHash('foobar123', function(err, res) {
+      if (err) throw err;
+      user.save(function(err, data) {
+        if (err) throw err;
+        user.generateToken(function(err, token) {
+          if (err) throw err;
+          this.token = token;
+          done();
+        }.bind(this));
+      }.bind(this));
+    }.bind(this));
+  });
+
+  it('should be able to search using a GET request', function(done) {
     chai.request(host)
-      .get('/search/MyFirstTweet')
+      .get('/search/myfirstTweet')
+      .set(authObj)
       .end(function(err, res) {
         randomUser = res.body.msg.statuses[0].user.id_str;
         tempRetweet = res.body.msg.statuses[0].id_str;
         expect(err).to.eql(null);
         expect(typeof res.body.msg.statuses).to.eql('object');
-        expect(res.body.msg.statuses[0].text.indexOf('#myfirstTweet')).to.be.greaterThan(0);
+        expect(typeof res.body.msg.statuses[0].text).to.eql('string');
         done();
       });
   });
 
-  // Following
-
-  it('should be able to follow a new person using a POST ROUTE', function(done) {
+  it('should be able to follow a user using a POST request', function(done) {
     chai.request(host)
       .post('/follow/' + randomUser)
-      .send({})
+      .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg.id_str).to.eql(randomUser);
@@ -42,10 +68,10 @@ describe('Following Tests', function() {
       });
   });
 
-  it('should be able to unfollow a person using a POST route', function(done) {
+  it('should be able to unfollow a user using a POST request', function(done) {
     chai.request(host)
       .post('/unfollow/' + randomUser)
-      .send({})
+      .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);
         expect(res.body.msg.id_str).to.eql(randomUser);
@@ -53,15 +79,15 @@ describe('Following Tests', function() {
       });
   });
 
-  // Tweeting
-
-  it('should be able to create a new tweet using a POST route', function(done) {
+  it('should be able to tweet using a POST request', function(done) {
     chai.request(host)
       .post('/tweet')
       .send({status: 'Hello World!'})
+      .set(authObj)
       .end(function(err, res) {
         tempTweet = res.body.msg.id_str;
         expect(err).to.eql(null);
+        expect(res.body.msg.text).to.eql('Hello World!');
         done();
       });
   });
@@ -69,9 +95,10 @@ describe('Following Tests', function() {
   it('should be able to untweet using a POST route', function(done) {
     chai.request(host)
       .post('/untweet/' + tempTweet)
-      .send({})
+      .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);
+        expect(res.body.msg.id_str).to.eql(tempTweet);
         done();
       });
   });
@@ -79,9 +106,10 @@ describe('Following Tests', function() {
   it('should be able to retweet using a POST route', function(done) {
     chai.request(host)
       .post('/retweet/' + tempRetweet)
-      .send({})
+      .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);
+        expect(res.body.msg.retweeted_status.id_str).to.eql(tempRetweet);
         done();
       });
   });
@@ -89,9 +117,10 @@ describe('Following Tests', function() {
   it('should be able to unretweet using a POST route', function(done) {
     chai.request(host)
       .post('/unretweet/' + tempRetweet)
-      .send({})
+      .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);
+        expect(res.body.msg.id_str).to.eql(tempRetweet);
         done();
       });
   });

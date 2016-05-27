@@ -20,7 +20,7 @@ app.use(function(req, resp, next) {
 app.use('/api', tweetRouter);
 app.use('/api', scheduleRouter);
 app.use('/api', userRouter);
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 app.use(function(req, res) {
   res.status(404).send('Page not found');

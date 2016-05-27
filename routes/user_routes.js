@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 
 var userRouter = module.exports = exports = express.Router();
 
-// Hardcoded dummy-user. TODO: Delete
+// Hardcoded dummy-user. TODO: Delete eventually
 var devUser = new User();
 devUser.basic.username = 'admin';
 devUser.username = 'admin';
@@ -56,4 +56,8 @@ userRouter.get('/signout', function(req, res) {
     }
     return res.json({ msg: 'sign out successful' });
   });
+});
+
+userRouter.get('/username', jsonParser, eatAuth, function(req, res) {
+  res.json({username: req.user.username});
 });

@@ -23,6 +23,7 @@
     "angular": "^1.5.5",
     "angular-base64": "^2.0.5",
     "angular-cookies": "^1.5.5",
+    "angular-route": "^1.5.5",
     "bcrypt": "^0.8.6",
     "body-parser": "^1.15.1",
     "cheerio": "^0.20.0",

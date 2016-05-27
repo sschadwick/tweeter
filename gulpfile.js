@@ -80,5 +80,5 @@ gulp.task('watch', function() {
 gulp.task('build:dev', ['jshint', 'jscs:warn', 'staticFiles', 'sass', 'webpack']);
 gulp.task('build:pro', ['staticFiles', 'sass', 'webpack']);
 
-gulp.task('tests', ['servertests']);
+gulp.task('test', ['servertests']);
 gulp.task('default', ['build:dev', 'tests']);

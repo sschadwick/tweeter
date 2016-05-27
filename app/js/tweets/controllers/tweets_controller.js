@@ -6,5 +6,7 @@ module.exports = function(app) {
 
     $http.defaults.headers.common.token = eat;
 
+    // More code here
+
   }]);
 };

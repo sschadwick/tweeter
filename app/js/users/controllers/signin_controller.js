@@ -1,6 +1,6 @@
 module.exports = function(app) {
   app.controller('SigninController', ['$scope', '$http', '$base64', '$location', '$cookies', function($scope, $http, $base64, $location, $cookies) {
-    $scope.buttonText = 'Kenny Log Ins';
+    $scope.buttonText = 'Log In';
     $scope.user = {};
     $scope.changePlacesText = 'Or Create a New User';
 

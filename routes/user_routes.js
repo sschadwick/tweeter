@@ -37,6 +37,9 @@ userRouter.get('/signin', httpBasic, function(req, res) {
     if (err) {return errorHandler(err, res);}
     user.compareHash(req.auth.password, function(err, hashRes) {
       if (err) {return errorHandler(err, res);}
+      if (!hashRes) {
+        return errorHandler(null, res);
+      }
       user.generateToken(function(err, token) {
         if (err) {return errorHandler(err, res);}
         res.json({token: token});

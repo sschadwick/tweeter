@@ -3,7 +3,7 @@
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGOLAB_URI || 'mongodb://localhost/tweeter');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/tweeter');
 process.env.APP_SECRET = process.env.APP_SECRET || 'changemechangemechangeme';
 
 var tweetRouter = require(__dirname + '/routes/tweet_routes');

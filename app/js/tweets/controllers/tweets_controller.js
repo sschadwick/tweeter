@@ -47,6 +47,7 @@ module.exports = function(app) {
         });
     };
 
+    // TODO: Check all these are responding correctly
     $scope.submitTweet = function(status) {
       $scope.sendPOST('tweet', {status: status}, function(res) {
         $scope.result = 'Successful tweet! Tweet ID: ' + res.data.msg.id_str;
@@ -89,6 +90,7 @@ module.exports = function(app) {
       });
     };
 
+    // Currently auto-tweeting is locked down to a subreddit
     $scope.submitAutoTweet = function(sub, freq) {
       $scope.sendPOST('addCron', {cron: freq, subreddit: sub}, function(res) {
         $scope.result = 'That task is now started - Task ID: ' + res.data;

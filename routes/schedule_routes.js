@@ -26,6 +26,7 @@ scheduleRoute.post('/addCron', jsonParser, function(req, res) {
   responseHandler.send200(res, 'Task now running: ' + task.id);
 });
 
+// Currently unused:
 scheduleRoute.get('/stopCron/:id', function(req, res) {
   for (var i in queue) {
     if (req.params.id === queue[i].id) {

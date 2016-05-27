@@ -52,7 +52,7 @@ describe('The Twetr Server', function() {
         tempRetweet = res.body.msg.statuses[0].id_str;
         expect(err).to.eql(null);
         expect(typeof res.body.msg.statuses).to.eql('object');
-        expect(res.body.msg.statuses[0].text.indexOf('#myfirstTweet')).to.be.greaterThan(0);
+        expect(typeof res.body.msg.statuses[0].text).to.eql('string');
         done();
       });
   });

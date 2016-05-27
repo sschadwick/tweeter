@@ -6,6 +6,7 @@ var gulpMocha = require('gulp-mocha');
 var jscs = require('gulp-jscs');
 var sass = require('gulp-sass');
 var webpack = require('webpack-stream');
+var webPackServer = require('webpack-dev-server');
 
 var filesToWatch = ['server.js', 'routes/*.js', 'models/*.js', 'lib/*.js', 'test/**/*.js', 'gulpfile.js', 'app/**/*.js'];
 var appFiles = ['app/**/*.html', 'app/**/*.js']; //dont want to jshint html files
@@ -73,7 +74,7 @@ gulp.task('servertests', function() {
 gulp.task('watch', function() {
   gulp.watch('./app/sass/**/*.scss', ['sass']);
   gulp.watch('./app/**/*.js', ['webpack']);
-  gulp.watch(filesToWatch, ['staticfiles']);
+  gulp.watch(filesToWatch, ['staticFiles']);
 });
 
 gulp.task('build:dev', ['jshint', 'jscs:warn', 'staticFiles', 'sass', 'webpack']);

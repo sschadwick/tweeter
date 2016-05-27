@@ -46,7 +46,6 @@ scheduleRoute.get('/deleteCron/:id', function(req, res) {
 });
 
 scheduleRoute.get('/queue', function(req, res) {
-  console.log(req.headers);
   var resQueue = [];
   for (var i in queue) {
     if (queue[i].id) {

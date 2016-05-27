@@ -1,79 +1,81 @@
-<h3>Twetr: Intuitive Twitter Automation</h3>
+<section data-ng-controller='TweetsController'>
+  <h3>Twetr: Intuitive Twitter Automation</h3>
 
-<form name='authForm' id='authForm'>
+  <form ng-data-submit='saveKey(keys)'>
 
-  <label>Consumer Key</label>
-  <input type='text' name='consumer_key' id='consumer_key'>
+    <label>Consumer Key</label>
+    <input type='text' data-ng-model='keys.consumer_key'>
 
-  <label>Consumer Secret</label>
-  <input type='text' name='consumer_secret' id='consumer_secret'>
+    <label>Consumer Secret</label>
+    <input type='text' data-ng-model='keys.consumer_secret'>
 
-  <label>Access Token</label>
-  <input type='text' name='access_token' id='access_token'>
+    <label>Access Token</label>
+    <input type='text' data-ng-model='keys.access_token'>
 
-  <label>Access Token Secret</label>
-  <input type='text' name='access_token_secret' id='access_token_secret'>
-  
-  <input type='button' id='saveKeys' value='Save'>
-  <p id='saveSuccess'></p>
-</form>
-<br>
-<p id='submitSuccess'></p>
+    <label>Access Token Secret</label>
+    <input type='text' data-ng-model='keys.access_token_secret'>
+    
+    <input type='submit' data-ng-click='saveKey(keys)'></button>
+    <p id='saveSuccess'></p>
+  </form>
+  <br>
+  <p id='submitSuccess'></p>
 
-<form name='tweetForm' id='tweetForm'>
-  <label>New tweet</label>
-  <input type='text' name='status' id='status' placeholder='Status'>
-  <input type='submit' id='submitTweet' value='Tweet'>
+  <form name='tweetForm' id='tweetForm'>
+    <label>New tweet</label>
+    <input type='text' name='status' id='status' placeholder='Status'>
+    <input type='submit' id='submitTweet' value='Tweet'>
+    <br>
+
+    <label>Delete tweet</label>
+    <input type='text' name='untweet' id='untweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitUntweet' value='Untweet'>
+    <br>
+    <br>
+    <label>New retweet</label>
+    <input type='text' name='retweet' id='retweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitRetweet' value='Retweet'>
+    <br>
+
+    <label>Delete retweet</label>
+    <input type='text' name='unretweet' id='unretweet' placeholder='Tweet ID'>
+    <input type='submit' id='submitUnretweet' value='Un-retweet'>
+  </form>
+
   <br>
 
-  <label>Delete tweet</label>
-  <input type='text' name='untweet' id='untweet' placeholder='Tweet ID'>
-  <input type='submit' id='submitUntweet' value='Untweet'>
-  <br>
-  <br>
-  <label>New retweet</label>
-  <input type='text' name='retweet' id='retweet' placeholder='Tweet ID'>
-  <input type='submit' id='submitRetweet' value='Retweet'>
-  <br>
+  <form name='followForm' id='followForm'>
+    <label>Follow User</label>
+    <input type='text' name='follow' id='follow' placeholder='User ID'>
+    <input type='submit' id='submitFollow' value='Follow'>
+    <br>
 
-  <label>Delete retweet</label>
-  <input type='text' name='unretweet' id='unretweet' placeholder='Tweet ID'>
-  <input type='submit' id='submitUnretweet' value='Un-retweet'>
-</form>
+    <label>Un-Follow User</label>
+    <input type='text' name='unfollow' id='unfollow' placeholder='User ID'>
+    <input type='submit' id='submitUnfollow' value='Unfollow'>
+  </form>
 
-<br>
-
-<form name='followForm' id='followForm'>
-  <label>Follow User</label>
-  <input type='text' name='follow' id='follow' placeholder='User ID'>
-  <input type='submit' id='submitFollow' value='Follow'>
   <br>
 
-  <label>Un-Follow User</label>
-  <input type='text' name='unfollow' id='unfollow' placeholder='User ID'>
-  <input type='submit' id='submitUnfollow' value='Unfollow'>
-</form>
+  <form name='convertForm' id='convertForm'>
+    <label>Convert Username to ID</label>
+    <input type='text' name='converter' id='converter' placeholder='Username'>
+    <input type='submit' id='submitConvert' value='Convert'>
+  </form>
 
-<br>
-
-<form name='convertForm' id='convertForm'>
-  <label>Convert Username to ID</label>
-  <input type='text' name='converter' id='converter' placeholder='Username'>
-  <input type='submit' id='submitConvert' value='Convert'>
-</form>
-
-<br>
-
-<form name='autoTweet' id='autoTweet'>
-  <label>Auto-Post from subreddit: r/</label>
-  <input type='text' name='subreddit' id='subreddit' placeholder='Subreddit'>
-  <input type='submit' id='submitAutotweet' value='Tweet it up!'>
   <br>
-  <label>Schedule: </label>
-  <input type='text' name='sched' id='sched' value='*/15 * * * *'>
-  <p>Post every 15 minutes</p>
 
-  <label>Delete task:</label>
-  <input type='text' name='delTask' id='delTask' placeholder='Task #'>
-  <input type='submit' id='submitDelTask' value='Delete task'>
-</form>
+  <form name='autoTweet' id='autoTweet'>
+    <label>Auto-Post from subreddit: r/</label>
+    <input type='text' name='subreddit' id='subreddit' placeholder='Subreddit'>
+    <input type='submit' id='submitAutotweet' value='Tweet it up!'>
+    <br>
+    <label>Schedule: </label>
+    <input type='text' name='sched' id='sched' value='*/15 * * * *'>
+    <p>Post every 15 minutes</p>
+
+    <label>Delete task:</label>
+    <input type='text' name='delTask' id='delTask' placeholder='Task #'>
+    <input type='submit' id='submitDelTask' value='Delete task'>
+  </form>
+</section>

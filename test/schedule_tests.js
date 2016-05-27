@@ -12,7 +12,7 @@ var host = 'localhost:3000/api';
 // Tests will only be auth'ed locally
 var authObj = require(__dirname + '/../config');
 
-var taskId
+var taskId;
 
 describe('The Scheduler API', function() {
   it('should be able to add a new cron', function(done) {
@@ -21,7 +21,6 @@ describe('The Scheduler API', function() {
       .set(authObj)
       .send({scrape: 'test', cron: '* * * * *'})
       .end(function(err, res) {
-        taskId = res.body.msg.split(': ')[1];
         expect(err).to.eql(null);
         expect(res.body.msg.split(': ')[0]).to.eql('Task now running');
         done();

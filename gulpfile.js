@@ -81,4 +81,4 @@ gulp.task('build:dev', ['jshint', 'jscs:warn', 'staticFiles', 'sass', 'webpack']
 gulp.task('build:pro', ['staticFiles', 'sass', 'webpack']);
 
 gulp.task('test', ['servertests']);
-gulp.task('default', ['build:dev', 'tests']);
+gulp.task('default', ['build:dev', 'test']);

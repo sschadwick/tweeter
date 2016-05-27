@@ -22,6 +22,7 @@ userRouter.post('/signup', jsonParser, function(req, res) {
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;
   newUser.generateHash(req.body.password, function(err, hash) {
+    // newUser is overwriting existing user
     if (err) {return errorHandler(err, res);}
     newUser.save(function(err, data) {
       if (err) {return errorHandler(err, res);}
@@ -38,7 +39,7 @@ userRouter.get('/signin', httpBasic, function(req, res) {
     user.compareHash(req.auth.password, function(err, hashRes) {
       if (err) {return errorHandler(err, res);}
       if (!hashRes) {
-        return errorHandler(null, res);
+        return errorHandler(err, res);
       }
       user.generateToken(function(err, token) {
         if (err) {return errorHandler(err, res);}

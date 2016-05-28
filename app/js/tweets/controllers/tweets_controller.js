@@ -3,7 +3,9 @@ module.exports = function(app) {
     var eat = $cookies.get('eat');
     if (!(eat && eat.length)) {
       $location.path('/signin');
-    }
+    };
+
+    $http.defaults.headers.common.token = eat;
 
     $scope.loadCookie = function() {
       var twetr = $cookies.get('twetr');
@@ -15,8 +17,6 @@ module.exports = function(app) {
         $http.defaults.headers.common.access_token_secret = keys.access_token_secret;
       }
     };
-
-    $http.defaults.headers.common.token = eat;
 
     $scope.sendPOST = function(route, data, callback) {
       $scope.loadCookie();
@@ -35,7 +35,6 @@ module.exports = function(app) {
 
     $scope.sendGET = function(route, callback) {
       $scope.loadCookie();
-
       $http({
         method: 'GET',
         url: '/api/' + route,
@@ -47,7 +46,6 @@ module.exports = function(app) {
         });
     };
 
-    // TODO: Check all these are responding correctly
     $scope.submitTweet = function(status) {
       $scope.sendPOST('tweet', {status: status}, function(res) {
         $scope.result = 'Successful tweet! Tweet ID: ' + res.data.msg.id_str;
@@ -60,12 +58,14 @@ module.exports = function(app) {
       });
     };
 
+    // TODO: Check
     $scope.submitRetweet = function(id) {
       $scope.sendPOST('retweet/' + id, {}, function(res) {
-        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id + ', Retweet ID: '
+        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id + ', Retweet ID: ';
       });
     };
 
+    // TODO: Check
     $scope.submitUnretweet = function(id) {
       $scope.sendPOST('unretweet/' + id, {}, function(res) {
         $scope.result = 'Successfully deleted that retweet!';
@@ -86,21 +86,28 @@ module.exports = function(app) {
 
     $scope.submitConvert = function(username) {
       $scope.sendPOST('username/' + username, {}, function(res) {
-        $scope.result = 'That users ID is: ' + res.data;
+        $scope.result = 'That users ID is: ' + res.data.msg.id_str;
       });
     };
 
-    // Currently auto-tweeting is locked down to a subreddit
     $scope.submitAutoTweet = function(sub, freq) {
-      $scope.sendPOST('addCron', {cron: freq, subreddit: sub}, function(res) {
-        $scope.result = 'That task is now started - Task ID: ' + res.data;
+      $scope.sendPOST('addCron', {cron: freq, scrape: sub}, function(res) {
+        $scope.result = res.data.msg;
       });
     };
 
     $scope.submitDeleteTask = function(taskID) {
       $scope.sendGET('deleteCron/' + taskID, function(res) {
-        $scope.result = 'That task is not deleted';
+        $scope.result = res.data.msg;
       });
+    };
+
+    $scope.submitSearch = function(str) {
+      // TODO: Implement search to return tweet id's | retweet.
+    };
+
+    $scope.updateQueue = function() {
+      // TODO: Implement a list of queued tasks belonging to this user.
     };
 
   }]);

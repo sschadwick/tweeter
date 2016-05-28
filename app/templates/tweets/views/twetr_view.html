@@ -19,7 +19,6 @@
   </form>
 
   <br>
-  <p id='submitSuccess'></p>
 </section>
 
 <!-- Convert the rest of this into Angular -->
@@ -78,8 +77,8 @@
 
     <br>
     <label>Schedule: </label>
-    <input type='text' value='*/15 * * * *' data-ng-model='freq'>
-    <p>Post every 15 minutes</p>
+    <input type='text' data-ng-model='freq'>
+    <p>Post every 15 minutes: '*/15 * * * *'</p>
 
     <label>Delete task:</label>
     <input type='text' placeholder='Task ID' data-ng-model='delTask'>

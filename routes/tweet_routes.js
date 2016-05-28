@@ -46,6 +46,6 @@ tweetRoute.post('/unretweet/:tweetId', jsonParser, function(req, res) {
 });
 
 // Convert Username to ID
-tweetRoute.post('/username/:username', jsonParser, function(req, res) {
+tweetRoute.post('/usernameToId/:username', jsonParser, function(req, res) {
   require(__dirname + '/../lib/twtr/usernameToId')(req, res);
 });

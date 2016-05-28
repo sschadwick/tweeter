@@ -85,7 +85,7 @@ module.exports = function(app) {
     };
 
     $scope.submitConvert = function(username) {
-      $scope.sendPOST('username/' + username, {}, function(res) {
+      $scope.sendPOST('usernameToId/' + username, {}, function(res) {
         $scope.result = 'That users ID is: ' + res.data.msg.id_str;
       });
     };

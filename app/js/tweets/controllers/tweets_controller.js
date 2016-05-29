@@ -7,6 +7,8 @@ module.exports = function(app) {
 
     $http.defaults.headers.common.token = eat;
 
+    $scope.freq = '*/15 * * * *';
+
     $scope.loadCookie = function() {
       var twetr = $cookies.get('twetr');
       if (twetr) {
@@ -58,14 +60,12 @@ module.exports = function(app) {
       });
     };
 
-    // TODO: Check
     $scope.submitRetweet = function(id) {
       $scope.sendPOST('retweet/' + id, {}, function(res) {
-        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id + ', Retweet ID: ';
+        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id;
       });
     };
 
-    // TODO: Check
     $scope.submitUnretweet = function(id) {
       $scope.sendPOST('unretweet/' + id, {}, function(res) {
         $scope.result = 'Successfully deleted that retweet!';
@@ -103,7 +103,9 @@ module.exports = function(app) {
     };
 
     $scope.submitSearch = function(str) {
-      // TODO: Implement search to return tweet id's | retweet.
+      $scope.sendGET('search/' + str, function(res) {
+        $scope.searchRes = res.data.msg.statuses;
+      });
     };
 
     $scope.updateQueue = function() {

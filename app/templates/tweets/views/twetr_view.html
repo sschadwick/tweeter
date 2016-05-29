@@ -62,26 +62,39 @@
 
   <br>
 
-  <form name='convertForm' id='convertForm'>
+  <form>
     <label>Convert Username to ID</label>
     <input type='text' placeholder='Username' data-ng-model='lookupUser'>
     <button data-ng-click='submitConvert(lookupUser)'>Look-Up</button>
   </form>
 
+  <form>
+    <label>Search recent tweets:</label>
+    <input type='text' placeholder='Query' data-ng-model='query'>
+    <button data-ng-click='submitSearch(query)'>Search</button>
+  </form>
+
   <br>
 
-  <form name='autoTweet' id='autoTweet'>
+  <form>
     <label>Auto-Post from subreddit: r/</label>
     <input type='text' placeholder='Subreddit' data-ng-model='subreddit'>
     <button data-ng-click='submitAutoTweet(subreddit, freq)'>Tweet It Up!</button>
 
     <br>
-    <label>Schedule: </label>
-    <input type='text' data-ng-model='freq'>
-    <p>Post every 15 minutes: '*/15 * * * *'</p>
+    <label>Schedule:</label>
+    <input type='text' data-ng-model='freq'> Post every 15 minutes
 
     <label>Delete task:</label>
     <input type='text' placeholder='Task ID' data-ng-model='delTask'>
     <button data-ng-click='submitDeleteTask(delTask)'>Delete</button>
   </form>
+
+  <ul>
+    <li ng-repeat="result in searchRes">
+      <strong>Tweet ID: {{ result.id_str }}, Posted By: {{ result.user.screen_name }}</strong>
+      <p>{{ result.text }}</p>
+    </li>
+  </ul>
+
 </section>

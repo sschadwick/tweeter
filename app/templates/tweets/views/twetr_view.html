@@ -85,15 +85,24 @@
     <label>Schedule:</label>
     <input type='text' data-ng-model='freq'> Post every 15 minutes
 
+    <br>
+
     <label>Delete task:</label>
     <input type='text' placeholder='Task ID' data-ng-model='delTask'>
     <button data-ng-click='submitDeleteTask(delTask)'>Delete</button>
   </form>
 
   <ul>
-    <li ng-repeat="result in searchRes">
+    <li ng-repeat='result in searchRes'>
       <strong>Tweet ID: {{ result.id_str }}, Posted By: {{ result.user.screen_name }}</strong>
       <p>{{ result.text }}</p>
+    </li>
+  </ul>
+
+  <ul>
+    <li ng-repeat='result in queueRes'>
+      <strong>Task ID: {{ result.id }}</strong>
+      <p>Title: {{ result.title }}, Post-Frequency: {{ result.frequency }}</p>
     </li>
   </ul>
 

@@ -93,12 +93,14 @@ module.exports = function(app) {
     $scope.submitAutoTweet = function(sub, freq) {
       $scope.sendPOST('addCron', {cron: freq, scrape: sub}, function(res) {
         $scope.result = res.data.msg;
+        $scope.updateQueue();
       });
     };
 
     $scope.submitDeleteTask = function(taskID) {
       $scope.sendGET('deleteCron/' + taskID, function(res) {
         $scope.result = res.data.msg;
+        $scope.updateQueue();
       });
     };
 
@@ -109,8 +111,11 @@ module.exports = function(app) {
     };
 
     $scope.updateQueue = function() {
-      // TODO: Implement a list of queued tasks belonging to this user.
+      $scope.sendGET('queue', function(res) {
+        $scope.queueRes = res.data.msg;
+      });
     };
+    $scope.updateQueue();
 
   }]);
 };

@@ -50,12 +50,12 @@ scheduleRoute.get('/queue', eatAuth, function(req, res) {
   for (var i in queue) {
     if (queue[i].id) {
       if (queue[i].username === req.user.username) {
-        var obj = {};
-        obj.id = queue[i].id;
-        obj.username = queue[i].username;
-        obj.title = queue[i].title;
-        obj.frequency = queue[i].frequency;
-
+        var obj = {
+          id: queue[i].id,
+          username: queue[i].username,
+          title: queue[i].title,
+          frequency: queue[i].frequency
+        };
         resQueue.push(obj);
       }
     }

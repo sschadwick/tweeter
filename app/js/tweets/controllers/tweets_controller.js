@@ -1,18 +1,17 @@
 module.exports = function(app) {
-  app.controller('TweetsController', ['$scope', '$http', '$cookies', '$location', function($scope, $http, $cookies, $location) {
+  app.controller('TweetsController', ['$scope', '$http', '$cookies', '$location', '$rootScope', function($scope, $http, $cookies, $location, $rootScope) {
     var eat = $cookies.get('eat');
     if (!(eat && eat.length)) {
       $location.path('/signin');
-    };
+    }
 
     $http.defaults.headers.common.token = eat;
 
     $scope.freq = '*/15 * * * *';
 
-    $scope.loadCookie = function() {
-      var twetr = $cookies.get('twetr');
-      if (twetr) {
-        var keys = JSON.parse(twetr);
+    $scope.loadKeys = function() {
+      var keys = $rootScope.rootKeys;
+      if (keys) {
         $http.defaults.headers.common.consumer_key = keys.consumer_key;
         $http.defaults.headers.common.consumer_secret = keys.consumer_secret;
         $http.defaults.headers.common.access_token = keys.access_token;
@@ -21,8 +20,7 @@ module.exports = function(app) {
     };
 
     $scope.sendPOST = function(route, data, callback) {
-      $scope.loadCookie();
-
+      $scope.loadKeys();
       $http({
         method: 'POST',
         url: '/api/' + route,
@@ -36,7 +34,7 @@ module.exports = function(app) {
     };
 
     $scope.sendGET = function(route, callback) {
-      $scope.loadCookie();
+      $scope.loadKeys();
       $http({
         method: 'GET',
         url: '/api/' + route,

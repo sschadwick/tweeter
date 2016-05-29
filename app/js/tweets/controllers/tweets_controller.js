@@ -1,16 +1,17 @@
 module.exports = function(app) {
-  app.controller('TweetsController', ['$scope', '$http', '$cookies', '$location', function($scope, $http, $cookies, $location) {
+  app.controller('TweetsController', ['$scope', '$http', '$cookies', '$location', '$rootScope', function($scope, $http, $cookies, $location, $rootScope) {
     var eat = $cookies.get('eat');
     if (!(eat && eat.length)) {
       $location.path('/signin');
-    };
+    }
 
     $http.defaults.headers.common.token = eat;
 
-    $scope.loadCookie = function() {
-      var twetr = $cookies.get('twetr');
-      if (twetr) {
-        var keys = JSON.parse(twetr);
+    $scope.freq = '*/15 * * * *';
+
+    $scope.loadKeys = function() {
+      var keys = $rootScope.rootKeys;
+      if (keys) {
         $http.defaults.headers.common.consumer_key = keys.consumer_key;
         $http.defaults.headers.common.consumer_secret = keys.consumer_secret;
         $http.defaults.headers.common.access_token = keys.access_token;
@@ -19,8 +20,7 @@ module.exports = function(app) {
     };
 
     $scope.sendPOST = function(route, data, callback) {
-      $scope.loadCookie();
-
+      $scope.loadKeys();
       $http({
         method: 'POST',
         url: '/api/' + route,
@@ -34,7 +34,7 @@ module.exports = function(app) {
     };
 
     $scope.sendGET = function(route, callback) {
-      $scope.loadCookie();
+      $scope.loadKeys();
       $http({
         method: 'GET',
         url: '/api/' + route,
@@ -58,14 +58,12 @@ module.exports = function(app) {
       });
     };
 
-    // TODO: Check
     $scope.submitRetweet = function(id) {
       $scope.sendPOST('retweet/' + id, {}, function(res) {
-        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id + ', Retweet ID: ';
+        $scope.result = 'Successful Retweet! Original Tweet ID: ' + id;
       });
     };
 
-    // TODO: Check
     $scope.submitUnretweet = function(id) {
       $scope.sendPOST('unretweet/' + id, {}, function(res) {
         $scope.result = 'Successfully deleted that retweet!';
@@ -85,7 +83,7 @@ module.exports = function(app) {
     };
 
     $scope.submitConvert = function(username) {
-      $scope.sendPOST('username/' + username, {}, function(res) {
+      $scope.sendPOST('usernameToId/' + username, {}, function(res) {
         $scope.result = 'That users ID is: ' + res.data.msg.id_str;
       });
     };
@@ -93,22 +91,29 @@ module.exports = function(app) {
     $scope.submitAutoTweet = function(sub, freq) {
       $scope.sendPOST('addCron', {cron: freq, scrape: sub}, function(res) {
         $scope.result = res.data.msg;
+        $scope.updateQueue();
       });
     };
 
     $scope.submitDeleteTask = function(taskID) {
       $scope.sendGET('deleteCron/' + taskID, function(res) {
         $scope.result = res.data.msg;
+        $scope.updateQueue();
       });
     };
 
     $scope.submitSearch = function(str) {
-      // TODO: Implement search to return tweet id's | retweet.
+      $scope.sendGET('search/' + str, function(res) {
+        $scope.searchRes = res.data.msg.statuses;
+      });
     };
 
     $scope.updateQueue = function() {
-      // TODO: Implement a list of queued tasks belonging to this user.
+      $scope.sendGET('queue', function(res) {
+        $scope.queueRes = res.data.msg;
+      });
     };
+    $scope.updateQueue();
 
   }]);
 };

@@ -5,9 +5,7 @@ module.exports = function(app) {
       var twetr = $cookies.get('twetr');
       if (twetr) {
         $scope.keys = JSON.parse(twetr);
-
-        // alternative to reading auth from cookie?
-        // $rootScope = $scope.keys;
+        $rootScope.rootKeys = $scope.keys;
       }
     };
 

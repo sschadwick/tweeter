@@ -14,6 +14,8 @@ var authObj = require(__dirname + '/../config');
 
 var taskId;
 
+// Need to add a before() login script, eatAuth is active on these routes
+
 describe('The Scheduler API', function() {
   it('should be able to add a new cron', function(done) {
     chai.request(host)

@@ -18,6 +18,8 @@ devUser.generateHash('admin', function(err, hash) {
 });
 
 userRouter.post('/signup', jsonParser, function(req, res) {
+  // TODO: Add inviteCode integration (prevents public signup)
+  // if (req.body.inviteCode === process.env.INVITE_CODE)
   var newUser = new User();
   newUser.basic.username = req.body.username;
   newUser.username = req.body.username;

@@ -22,7 +22,7 @@ module.exports = function(app) {
           });
           $location.path('/twetr');
         }, function(res) {
-          console.log(res);
+          $scope.result = res.data.msg;
         });
     };
   }]);

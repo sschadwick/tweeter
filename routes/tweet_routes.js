@@ -9,7 +9,6 @@ var tweetRoute = module.exports = exports = express.Router();
 
 // SEARCHING: (returns 10 most recent tweets matching str)
 
-// does not support non-alphanumeric characters (eg #myfirsttweet)
 tweetRoute.post('/search', jsonParser, eatAuth, function(req, res) {
   require(__dirname + '/../lib/twtr/search')(req, res);
 });

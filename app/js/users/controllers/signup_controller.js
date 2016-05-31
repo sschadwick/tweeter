@@ -24,7 +24,7 @@ module.exports = function(app) {
           $scope.getUserName();
           $location.path('/twetr');
         }, function(res) {
-          console.log(res);
+          $scope.result = res.data.msg;
         });
     };
   }]);

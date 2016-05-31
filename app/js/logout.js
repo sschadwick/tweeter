@@ -26,7 +26,7 @@ module.exports = function(app) {
         .then(function(res) {
           $scope.username = res.data.username;
         }, function(res) {
-          console.log(res);
+          $scope.result = res.data.msg;
         });
     };
 

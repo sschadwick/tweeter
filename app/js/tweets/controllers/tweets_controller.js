@@ -103,7 +103,7 @@ module.exports = function(app) {
     };
 
     $scope.submitSearch = function(str) {
-      $scope.sendGET('search/' + str, function(res) {
+      $scope.sendPOST('search', {str: str}, function(res) {
         $scope.searchRes = res.data.msg.statuses;
       });
     };

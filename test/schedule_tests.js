@@ -7,6 +7,7 @@ var expect = chai.expect;
 
 require(__dirname + '/../server');
 var mongoose = require('mongoose');
+var User = require(__dirname + '/../models/user');
 var host = 'localhost:3000/api';
 
 // Tests will only be auth'ed locally
@@ -14,10 +15,34 @@ var authObj = require(__dirname + '/../config');
 
 var taskId;
 
-// Need to add a before() login script, eatAuth is active on these routes
-
 describe('The Scheduler API', function() {
+
+  before(function(done) {
+    var user = new User();
+    user.username = 'test';
+    user.basic.username = 'test';
+    user.generateHash('foobar123', function(err, res) {
+      if (err) throw err;
+      user.save(function(err, data) {
+        if (err) throw err;
+        user.generateToken(function(err, token) {
+          if (err) throw err;
+          this.token = token;
+          done();
+        }.bind(this));
+      }.bind(this));
+    }.bind(this));
+  });
+
+  after(function(done) {
+    mongoose.connection.db.dropDatabase(function(err) {
+      if (err) throw err;
+      done();
+    });
+  });
+
   it('should be able to add a new cron', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/addCron')
       .set(authObj)
@@ -30,6 +55,7 @@ describe('The Scheduler API', function() {
   });
 
   it('should return the queue', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .get('/queue')
       .set(authObj)
@@ -42,8 +68,9 @@ describe('The Scheduler API', function() {
   });
 
   it('should be able to delete a cron', function(done) {
+    authObj.token = this.token;
     chai.request(host)
-      .get('/deleteCron/' + taskId)
+      .get('/deleteCron/' + taskId.id)
       .set(authObj)
       .end(function(err, res) {
         expect(err).to.eql(null);

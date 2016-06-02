@@ -17,7 +17,7 @@ var scheduleRoute = module.exports = exports = express.Router();
 
 scheduleRoute.post('/addCron', jsonParser, eatAuth, function(req, res) {
   var task = addCron(req.body.cron, function() {
-    scrape(req.body.scrape, {imageTweet: true}, function(urls, titles) {
+    scrape(req.body.scrape, function(urls, titles) {
       var choose = Math.floor(urls.length *  Math.random()) + 1;
       req.body.status = titles[choose] + ' ' + urls[choose];
       require(__dirname + '/../lib/twtr/tweetAuto')(req, res);

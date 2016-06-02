@@ -43,10 +43,12 @@ describe('The Twetr Server', function() {
     }.bind(this));
   });
 
-  it('should be able to search using a GET request', function(done) {
+  it('should be able to search using a POST request', function(done) {
+    authObj.token = this.token;
     chai.request(host)
-      .get('/search/myfirstTweet')
+      .post('/search')
       .set(authObj)
+      .send({str: 'myfirstTweet'})
       .end(function(err, res) {
         randomUser = res.body.msg.statuses[0].user.id_str;
         tempRetweet = res.body.msg.statuses[0].id_str;
@@ -58,6 +60,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to follow a user using a POST request', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/follow/' + randomUser)
       .set(authObj)
@@ -69,6 +72,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to unfollow a user using a POST request', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/unfollow/' + randomUser)
       .set(authObj)
@@ -80,6 +84,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to tweet using a POST request', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/tweet')
       .send({status: 'Hello World!'})
@@ -93,6 +98,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to untweet using a POST route', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/untweet/' + tempTweet)
       .set(authObj)
@@ -104,6 +110,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to retweet using a POST route', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/retweet/' + tempRetweet)
       .set(authObj)
@@ -115,6 +122,7 @@ describe('The Twetr Server', function() {
   });
 
   it('should be able to unretweet using a POST route', function(done) {
+    authObj.token = this.token;
     chai.request(host)
       .post('/unretweet/' + tempRetweet)
       .set(authObj)

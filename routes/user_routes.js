@@ -38,6 +38,7 @@ userRouter.post('/signup', jsonParser, function(req, res) {
 userRouter.get('/signin', httpBasic, function(req, res) {
   User.findOne({'basic.username': req.auth.username}, function(err, user) {
     if (err) {return errorHandler(err, res);}
+    if (!user) {return errorHandler(err, res);}
     user.compareHash(req.auth.password, function(err, hashRes) {
       if (err) {return errorHandler(err, res);}
       if (!hashRes) {

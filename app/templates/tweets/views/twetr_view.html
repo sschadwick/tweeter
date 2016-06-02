@@ -1,7 +1,7 @@
 <h3>Welcome to Twetr:</h3>
-<section data-ng-controller='KeysController'>
-  <h5>Your keys are provided by Twitter at apps.twitter.com (you may need to authorize a new app).</h5>
-  <form>
+<section class='keysSection' data-ng-controller='KeysController'>
+  <p class='boldText'>Your keys are provided by Twitter at apps.twitter.com (you may need to authorize a new app).</p>
+  <form class='keysForm'>
     <label>Consumer Key</label>
     <input type='text' data-ng-model='keys.consumer_key'>
 
@@ -15,17 +15,16 @@
     <input type='text' data-ng-model='keys.access_token_secret'>
     
     <button data-ng-click='saveKey(keys)'>Save Keys</button>
-  <br>
   </form>
+  <p>{{ keyResult }}</p>
 </section>
 
-<section data-ng-controller='TweetsController'>
-  <p>{{ result }}</p>
-  <form>
+<section class='tweetsSection' data-ng-controller='TweetsController'>
+  <p class='errorText'>{{ result }}</p>
+  <form class='tweetForm'>
     <label>New tweet</label>
     <input type='text' placeholder='Status' data-ng-model='status'>
     <button data-ng-click='submitTweet(status)'>Tweet</button>
-
 
     <br>
     <label>Delete tweet</label>
@@ -46,7 +45,7 @@
 
   <br>
 
-  <form>
+  <form class='followForm'>
     <label>Follow User</label>
     <input type='text' placeholder='User ID' data-ng-model='followId'>
     <button data-ng-click='submitFollow(followId)'>Follow</button>
@@ -59,7 +58,7 @@
 
   <br>
 
-  <form>
+  <form class='miscForm'>
     <label>Convert Username to ID</label>
     <input type='text' placeholder='Username' data-ng-model='lookupUser'>
     <button data-ng-click='submitConvert(lookupUser)'>Look-Up</button>
@@ -73,7 +72,7 @@
 
   <br>
 
-  <form>
+  <form class='taskForm'>
     <label>Auto-Post from subreddit: r/</label>
     <input type='text' placeholder='Subreddit' data-ng-model='subreddit'>
     <button data-ng-click='submitAutoTweet(subreddit, freq)'>Tweet It Up!</button>

@@ -20,7 +20,8 @@
 </section>
 
 <section class='tweetsSection' data-ng-controller='TweetsController'>
-  <p class='errorText'>{{ result }}</p>
+  <p class='errorText'>{{ err }}</p>
+  <p class='result'>{{ result }}</p>
   <form class='tweetForm'>
     <label>New tweet</label>
     <input type='text' placeholder='Status' data-ng-model='status'>
@@ -88,18 +89,35 @@
     <button data-ng-click='submitDeleteTask(delTask)'>Delete</button>
   </form>
 
-  <ul>
-    <li ng-repeat='result in searchRes'>
-      <strong>Tweet ID: {{ result.id_str }}, Posted By: {{ result.user.screen_name }}</strong> <button data-ng-click='submitRetweet(this.result.id_str)'>Retweet</button> <button data-ng-click='submitFollow(this.result.user.id_str)'>Follow</button>
-      <p>{{ result.text }}</p>
-    </li>
-  </ul>
+  <table data-ng-if='searchRes'>
+    <th>Tweet ID</th>
+    <th>Posted By</th>
+    <th>Tweet</th>
+    <tr data-ng-repeat='result in searchRes'>
+      <td>{{ result.id_str }}</td>
+      <td>{{ result.user.screen_name }}</td>
+      <td>{{ result.text }}</td>
+      <td>
+        <button data-ng-click='submitRetweet(this.result.id_str)'>Retweet</button>
+      </td>
+      <td>
+        <button data-ng-click='submitFollow(this.result.user.id_str)'>Follow</button>
+      </td>
+    </tr>
+  </table>
 
-  <ul>
-    <li ng-repeat='result in queueRes'>
-      <strong>Task ID: {{ result.id }}</strong> <button data-ng-click='submitDeleteTask(this.result.id)'>Delete</button>
-      <p>Subreddit: {{ result.title }}, Post-Frequency: {{ result.frequency }}</p>
-    </li>
-  </ul>
+  <table data-ng-if='queueRes[0]'>
+    <th>Task ID</th>
+    <th>Subreddit</th>
+    <th>Frequency</th>
+    <tr data-ng-repeat='result in queueRes'>
+      <td>{{ result.id }}</td>
+      <td>{{ result.title }}</td>
+      <td>{{ result.frequency }}</td>
+      <td>
+        <button data-ng-click='submitDeleteTask(this.result.id)'>Delete</button>
+      </td>
+    </tr>
+  </table>
 
 </section>

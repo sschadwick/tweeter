@@ -29,7 +29,7 @@ module.exports = function(app) {
         .then(function(res) {
           callback(res); // success
         }, function(res) {
-          $scope.result = res.data.msg; // failure
+          $scope.err = res.data.msg; // failure
         });
     };
 
@@ -42,7 +42,7 @@ module.exports = function(app) {
         .then(function(res) {
           callback(res);
         }, function(res) {
-          $scope.result = res.data.msg;
+          $scope.err = res.data.msg;
         });
     };
 

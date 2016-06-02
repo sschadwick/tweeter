@@ -1,7 +1,7 @@
 <section>
   <h1>{{h1Text}}</h1>
 
-  <form name='UserForm' data-ng-submit='sendToServer(user)'>
+  <form class='userForm' data-ng-submit='sendToServer(user)'>
     <label>
       User Name
       <input type='text' data-ng-model='user.username'>
@@ -22,5 +22,4 @@
   <button data-ng-click='changePlaces()'>{{ changePlacesText }}</button>
 
   <br>
-  <p>{{ result }}</p>
 </section>

@@ -13,6 +13,7 @@ module.exports = function(app) {
 
     $scope.saveKey = function(keys) {
       $cookies.put('twetr', JSON.stringify(keys));
+      $scope.keyResult = 'Keys Successfully Saved!';
     };
 
   }]);

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset='UTF-8'>
     <title>Twetr Platform</title>
-    <link rel="stylesheet" href="./css/main.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./css/main.css'>
   </head>
-  <body data-ng-app="twetrApp">
-  <a data-ng-if="loggedIn()" href data-ng-click="logOut()">Log Out{{username? ' of ' + username : ''}}</a>
+  <body data-ng-app='twetrApp'>
+  <a data-ng-if='loggedIn()' href data-ng-click='logOut()'>Log Out{{username? ' of ' + username : ''}}</a>
   <p class='errorText'>{{ userResult }}</p>
     <h1>Twetr: Intuitive Twitter Automation</h1>
     <main data-ng-view>
     </main>
-    <script src="./bundle.js"></script>
+    <script src='./bundle.js'></script>
   </body>
 </html>

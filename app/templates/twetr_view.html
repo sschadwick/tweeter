@@ -80,8 +80,10 @@
 
     <br>
     <label>Schedule:</label>
-    <input type='text' data-ng-model='freq'> Post every 15 minutes
-
+    <input type='text' data-ng-model='freq'> Post every 
+    <select data-ng-model='schedule.selectTime' data-ng-change='reloadSchedule()'>
+      <option ng-repeat='option in schedule.availableOptions' value='{{ option.id }}'>{{ option.name }}</option>
+    </select> minutes
     <br>
 
     <label>Delete task:</label>
@@ -89,7 +91,7 @@
     <button data-ng-click='submitDeleteTask(delTask)'>Delete</button>
   </form>
 
-  <table data-ng-if='queueRes[0]'>
+  <table data-ng-if='queueRes[0]' class='taskQueue'>
     <th>Task ID</th>
     <th>Subreddit</th>
     <th>Frequency</th>

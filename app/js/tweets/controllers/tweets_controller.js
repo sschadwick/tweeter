@@ -7,7 +7,25 @@ module.exports = function(app) {
 
     $http.defaults.headers.common.token = eat;
 
-    $scope.freq = '*/15 * * * *';
+    $scope.schedule = {
+      selectTime: null,
+      availableOptions: []
+    };
+
+    $scope.reloadSchedule = function() {
+      $scope.freq = '*/' + $scope.schedule.selectTime + ' * * * *';
+    };
+
+    $scope.loadOptions = function() {
+      for (var i = 0; i < 60; i++) {
+        var obj = {id: (i + 1).toString(), name: (i + 1)};
+        $scope.schedule.availableOptions.push(obj);
+      }
+      // Default to 15 minute interval
+      $scope.schedule.selectTime = $scope.schedule.availableOptions[14].id;
+      $scope.reloadSchedule();
+    };
+    $scope.loadOptions();
 
     $scope.loadKeys = function() {
       var keys = $rootScope.rootKeys;

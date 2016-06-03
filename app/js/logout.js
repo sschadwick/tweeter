@@ -26,8 +26,10 @@ module.exports = function(app) {
       })
         .then(function(res) {
           $scope.username = res.data.username;
+          $location.path('/twetr');
         }, function(res) {
           $scope.userResult = res.data.msg;
+          $location.path('/signin');
         });
     };
 

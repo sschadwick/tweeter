@@ -13,7 +13,7 @@ module.exports = function(twetrApp) {
         controller: 'SigninController'
       })
       .otherwise({
-        redirectTo: '/signin'
+        redirectTo: '/twetr'
       });
   }]);
 };

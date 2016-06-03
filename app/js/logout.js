@@ -12,6 +12,7 @@ module.exports = function(app) {
     };
 
     $scope.getUserName = function(callback) {
+      $scope.userResult = '';
       var eat = $cookies.get('eat');
       if (!(eat && eat.length)) {
         callback(new Error('not logged in'));

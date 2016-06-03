@@ -11,7 +11,6 @@ var analyticRouter = module.exports = exports = express.Router();
 
 var logger = require(__dirname + '/../lib/logger');
 
-// TODO: change this to return the spreadsheet info
 analyticRouter.get('/analytics', function(req, res) {
   fs.readFile(__dirname + '/../file.xls', function(err, data) {
     if (err) {res.write('File not found');} else {

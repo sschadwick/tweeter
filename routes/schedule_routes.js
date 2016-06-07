@@ -19,7 +19,7 @@ scheduleRoute.post('/addCron', jsonParser, eatAuth, function(req, res) {
   var task = addCron(req.body.cron, function() {
     scrape(req.body.scrape, function(urls, titles) {
       var choose = Math.floor(urls.length *  Math.random()) + 1;
-      req.body.status = titles[choose] + ' ' + urls[choose];
+      req.body.status = titles[choose].substr(0, 140) + ' ' + urls[choose];
       require(__dirname + '/../lib/twtr/tweetAuto')(req, res);
     });
   }, req.user.username, req.body.scrape, req.body.cron).start();

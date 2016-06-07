@@ -6,11 +6,16 @@ main {
   text-align: center;
 }
 
+body {
+  background-color: #4099FF;
+}
+
 section {
   border-style: solid;
   padding-top: 15px;
   padding-bottom: 15px;
   margin: 20px 20px 20px 20px;
+  background-color: #D3D3D3;
 }
 
 .boldText {
